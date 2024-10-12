@@ -1,1 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <style>
+        /* Navbar styles */
+        .navbar {
+            background-color: black;
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            width: 100%;
+            height: 70px;
+        } 
 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 140px); /* Höhe des Bildschirms minus Navbar und anderer Abstände */
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+            resize: none; /* Verhindert die Größenänderung durch den Benutzer */
+        }
+
+        .form-row textarea:last-child {
+            margin-right: 0;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .loesungsweg {
+            margin-top: 20px; /* Abstand zum oberen Teil */
+            flex-grow: 1; /* Nimmt den restlichen Platz ein */
+        }
+
+        /* Feedback-Bereich */
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Mini-Tastatur Styling */
+        .mini-keyboard {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap; /* Damit die Buttons in mehreren Zeilen dargestellt werden können */
+        }
+
+        .mini-keyboard button {
+            font-size: 24px; /* Größerer Text */
+            margin: 5px;
+            padding: 15px; /* Größere Buttons */
+            border-radius: 8px;
+            border: 2px solid #333; /* Sichtbare Umrandung */
+            background-color: #f0f0f0;
+            cursor: pointer;
+            color: black; /* Textfarbe schwarz für Kontrast */
+            font-weight: bold; /* Fettschrift für bessere Lesbarkeit */
+        }
+
+        .mini-keyboard button:hover {
+            background-color: #ddd;
+        }
+
+        /* Kleinere Breite, aber zweizeiliger Absenden-Button */
+        .submit-button {
+            width: 100px; /* Breite des Absenden-Buttons */
+            height: 60px; /* Höhe, um ihn zweizeilig zu machen */
+            font-size: 14px;
+            text-align: center; /* Zentrierter Text */
+            padding: 5px; /* Kleineres Padding */
+        }
+
+        /* Stil für den nächsten Button */
+        .next-button {
+            display: none; /* Standardmäßig ausblenden */
+            margin-top: 20px;
+            padding: 10px;
+            background-color: red; /* Rote Hintergrundfarbe */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; /* Größerer Text */
+            text-align: center;
+            width: 150px; /* Breite des Buttons */
+        }
+
+        .next-button:hover {
+            background-color: darkred; /* Dunklere Farbe beim Hover */
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Mein Dokument</title>
+</head>
+<body>
+   
+    <div class="navbar">
+        <h1>Mathe Flug</h1>
+    </div>
+    <br>
+    <br>
+    <div class="text">
+        Ein Flugzeug will von einem Stützpunkt (A) zu einem Flugplatz in den Bergen (B) fliegen. <br>
+        Der Verbrauch dieses Flugzeugs beträgt 3,4 l/100 km. <br>
+        Berechne, ob das Flugzeug den Weg schafft, wenn es nur 20 l Treibstoff hat.
+        <br>
+        <br>
+        Skizze: <br>
+        <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
+        <br>
+        <br>
+    <form id="mathForm">
+        <div class="form-row">
+            <div>
+                <label for="gegeben">Gegeben:</label>
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben..." onfocus="setActiveField(this)"></textarea>
+            </div>
+            <div>
+                <label for="gesucht">Gesucht:</label>
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben..." onfocus="setActiveField(this)"></textarea>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div>
+                <label for="zaehler">Zähler (Bruch):</label>
+                <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
+            </div>
+            <div>
+                <label for="nenner">Nenner (Bruch):</label>
+                <input id="nenner" type="text" placeholder="Nenner" onfocus="setActiveField(this)" />
+            </div>
+        </div>
+
+        <!-- Mini-Tastatur -->
+        <div class="mini-keyboard">
+            <button type="button" onclick="insertCharacter('γ')">γ</button>
+            <button type="button" onclick="insertCharacter('α')">α</button>
+            <button type="button" onclick="insertCharacter('β')">β</button>
+            <button type="button" onclick="insertFraction()">Bruch einsetzen</button>
+            <button type="button" onclick="insertCharacter('²')">x²</button>
+            <button type="button" onclick="insertCharacter('³')">x³</button>
+        </div>
+
+        <div class="loesungsweg">
+            <label for="loesungsweg">Lösungsweg:</label>
+            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
+        </div>
+
+        <br>
+        <button type="submit" class="submit-button">Absenden</button>
+
+        <!-- Feedback-Bereich -->
+        <div class="feedback" id="feedback"></div>
+
+        <!-- Nächste Aufgabe Button -->
+        <button type="button" class="next-button" id="nextButton">Nächste Aufgabe</button>
+    </form>
+
+    <script>
+        // Variable zum Speichern des aktiven Textfeldes
+        let activeField = null;
+
+        // Funktion, um das aktuell aktive Textfeld zu speichern
+        function setActiveField(field) {
+            activeField = field;
+        }
+
+        // Funktion zum Einfügen eines Zeichens in das aktive Textfeld
+        function insertCharacter(character) {
+            if (activeField) {
+                const start = activeField.selectionStart;
+                const end = activeField.selectionEnd;
+                const text = activeField.value;
+                activeField.value = text.slice(0, start) + character + text.slice(end);
+                // Setze den Cursor nach dem eingefügten Zeichen
+                activeField.selectionStart = activeField.selectionEnd = start + character.length; // Cursor nach dem Zeichen setzen
+                activeField.focus();
+            }
+        }
+
+        // Funktion zum Einfügen des Bruchs in die Textarea
+        function insertFraction() {
+            const zaehler = document.getElementById("zaehler").value;
+            const nenner = document.getElementById("nenner").value;
+
+            if (zaehler && nenner) {
+                insertCharacter(`${zaehler}/${nenner}`);
+                document.getElementById("zaehler").value = ""; // Zähler zurücksetzen
+                document.getElementById("nenner").value = ""; // Nenner zurücksetzen
+            } else {
+                alert("Bitte sowohl Zähler als auch Nenner eingeben.");
+            }
+        }
+
+        // Funktion zur Überprüfung der Eingaben
+        document.getElementById("mathForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Verhindert das Standard-Formularverhalten
+
+            // Eingaben abrufen
+            const gegeben = document.getElementById("gegeben").value.trim();
+            const gesucht = document.getElementById("gesucht").value.trim().toLowerCase();
+            const loesungsweg = document.getElementById("loesungsweg").value.trim();
+
+            // Feedback-Bereich
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = ""; // Vorherige Rückmeldung löschen
+
+            // Überprüfen, ob die Eingaben korrekt sind
+            const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km");
+            const richtigGesucht = gesucht === "c";
+            const richtigLoesungsweg = checkSolutionSteps(loesungsweg);
+
+            // Ergebnis zusammenstellen
+            if (richtigGegeben && richtigGesucht && richtigLoesungsweg) {
+                feedback.textContent = "Alle Eingaben sind korrekt!";
+                feedback.style.color = "green"; // Erfolgreiche Rückmeldung
+                document.getElementById("nextButton").style.display = "block"; // Button einblenden
+            } else {
+                feedback.textContent = "Es gibt einen Fehler in den Eingaben.";
+                feedback.style.color = "red"; // Fehlermeldung
+                document.getElementById("nextButton").style.display = "none"; // Button ausblenden
+            }
+        });
+
+        // Funktion zur Überprüfung des Lösungswegs
+        function checkSolutionSteps(loesungsweg) {
+            // Prüfen, ob der Lösungsweg relevante Schlüsselbegriffe enthält
+            const requiredKeywords = [
+                "c=b/sin(β)*sin(γ)",
+                "=595,9 km/sin(48°)*sin(86,08°)=799,99 km",
+                "c=799,99 km"
+            ];
+            return requiredKeywords.every(keyword => loesungsweg.includes(keyword));
+        }
+
+        // Setzt den Lösungsweg bei der Absenden-Action
+        document.getElementById("mathForm").addEventListener("submit", function() {
+            const loesungsweg = `
+                c=b/sin(β)*sin(γ) \n
+                =595,9 km/sin(48°)*sin(86,08°)=799,99 km \n
+                c=799,99 km
+            `;
+            document.getElementById("loesungsweg").value = loesungsweg;
+        });
+    </script>
+</body>
+</html>
