@@ -62,6 +62,27 @@
     .loesungsweg {
         margin-top: 20px; /* Abstand zum oberen Teil */
     }
+
+    /* Mini-Tastatur Styling */
+    .mini-keyboard {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+
+    .mini-keyboard button {
+        font-size: 20px;
+        margin: 5px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: #f0f0f0;
+        cursor: pointer;
+    }
+
+    .mini-keyboard button:hover {
+        background-color: #ddd;
+    }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -85,23 +106,53 @@
         <div class="form-row">
             <div>
                 <label for="gegeben">Gegeben:</label>
-                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Hier eingeben..."></textarea>
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Hier eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
 
             <div>
                 <label for="gesucht">Gesucht:</label>
-                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Hier eingeben..."></textarea>
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Hier eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
+        </div>
+
+        <!-- Mini-Tastatur -->
+        <div class="mini-keyboard">
+            <button type="button" onclick="insertCharacter('γ')">γ</button>
+            <button type="button" onclick="insertCharacter('α')">α</button>
+            <button type="button" onclick="insertCharacter('β')">β</button>
         </div>
 
         <div class="loesungsweg">
             <label for="loesungsweg">Lösungsweg:</label>
             <input type="text" id="loesungsweg" name="loesungsweg" placeholder="Hier eingeben...">
         </div>
-<br>
+
         <br>
         <button type="submit">Absenden</button>
     </form>
+
+    <script>
+        // Variable zum Speichern des aktiven Textfeldes
+        let activeField = null;
+
+        // Funktion, um das aktuell aktive Textfeld zu speichern
+        function setActiveField(field) {
+            activeField = field;
+        }
+
+        // Funktion zum Einfügen eines Zeichens in das aktive Textfeld
+        function insertCharacter(character) {
+            if (activeField) {
+                const start = activeField.selectionStart;
+                const end = activeField.selectionEnd;
+                const text = activeField.value;
+                activeField.value = text.slice(0, start) + character + text.slice(end);
+                // Setze den Cursor nach dem eingefügten Zeichen
+                activeField.selectionStart = activeField.selectionEnd = start + 1;
+                activeField.focus();
+            }
+        }
+    </script>
 
 </body>
 </html>
