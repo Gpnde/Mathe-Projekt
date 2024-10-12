@@ -246,29 +246,20 @@
         // Funktion zur Überprüfung des Lösungswegs
         function checkSolutionSteps(loesungsweg) {
             // Prüfen, ob der Lösungsweg relevante Schlüsselbegriffe enthält
-            const requiredKeywords = ["γ=86,08°", "β=48°", "b=595,9 km", "c = 799,99 km"];
+            const requiredKeywords = [
+                "c=b/sin(β)*sin(γ)",
+                "=595,9 km/sin(48°)*sin(86,08°)=799,99 km",
+                "c=799,99 km"
+            ];
             return requiredKeywords.every(keyword => loesungsweg.includes(keyword));
         }
 
         // Setzt den Lösungsweg bei der Absenden-Action
         document.getElementById("mathForm").addEventListener("submit", function() {
             const loesungsweg = `
-                Gegeben: 
-                - Verbrauch = 3,4 l/100 km
-                - Treibstoff = 20 l
-                - b = 595,9 km
-                - γ = 86,08°
-                - β = 48°
-
-                Berechnung der Seite c mithilfe des Sinussatzes: 
-                \[
-                \frac{c}{\sin(γ)} = \frac{b}{\sin(β)} \Rightarrow c = \frac{b \cdot \sin(γ)}{\sin(β)}
-                \]
-
-                Berechnung:
-                \[
-                c = \frac{595,9 km \cdot \sin(86,08°)}{\sin(48°)} \approx 799,99 km
-                \]
+                c=b/sin(β)*sin(γ) \n
+                =595,9 km/sin(48°)*sin(86,08°)=799,99 km \n
+                c=799,99 km
             `;
             document.getElementById("loesungsweg").value = loesungsweg;
         });
