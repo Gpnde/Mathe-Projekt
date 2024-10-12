@@ -66,6 +66,13 @@
             flex-grow: 1; /* Nimmt den restlichen Platz ein */
         }
 
+        /* Feedback-Bereich */
+        .feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            color: red;
+        }
+
         /* Mini-Tastatur Styling */
         .mini-keyboard {
             display: flex;
@@ -112,23 +119,23 @@
         Ein Flugzeug will von einem Stützpunkt (A) zu einem Flugplatz in den Bergen (B) fliegen. <br>
         Der Verbrauch dieses Flugzeugs beträgt 3,4 l/100 km. <br>
         Berechne, ob das Flugzeug den Weg schafft, wenn es nur 20 l Treibstoff hat.
-         <br>
-         <br>
+        <br>
+        <br>
         Skizze: <br>
         <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
-         <br>
-         <br>
+        <br>
+        <br>
         
 
-    <form>
+    <form id="mathForm">
         <div class="form-row">
             <div>
-                <label for="gegeben">Gegeben:</label>
+                <label for="gegeben">Gegeben (Strecke in km):</label>
                 <textarea id="gegeben" name="gegeben" rows="3" placeholder="Hier eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
 
             <div>
-                <label for="gesucht">Gesucht:</label>
+                <label for="gesucht">Gesucht (ja/nein):</label>
                 <textarea id="gesucht" name="gesucht" rows="3" placeholder="Hier eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
         </div>
@@ -147,8 +154,10 @@
 
         <br>
         <button type="submit" class="submit-button">Absenden</button>
-    </form>
 
+        <!-- Feedback-Bereich -->
+        <div class="feedback" id="feedback"></div>
+    </form>
 
     <script>
         // Variable zum Speichern des aktiven Textfeldes
@@ -171,6 +180,41 @@
                 activeField.focus();
             }
         }
+
+        // Funktion zur Berechnung und Überprüfung der Eingaben
+        document.getElementById("mathForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Verhindert das Standard-Formularverhalten
+
+            // Eingaben abrufen
+            const gegeben = parseFloat(document.getElementById("gegeben").value);
+            const gesucht = document.getElementById("gesucht").value.trim().toLowerCase();
+            const treibstoff = 20; // gegebener Treibstoff in Litern
+            const verbrauch = 3.4; // Verbrauch in Litern pro 100 km
+
+            // Berechnung der maximalen Strecke
+            const maxStrecke = (treibstoff / verbrauch) * 100;
+
+            // Feedback-Bereich
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = ""; // Vorherige Rückmeldung löschen
+
+            // Überprüfen, ob die Eingaben korrekt sind
+            if (!isNaN(gegeben)) {
+                if (gegeben <= maxStrecke && gesucht === "ja") {
+                    feedback.textContent = "Richtig! Das Flugzeug kann die Strecke mit 20 l Treibstoff schaffen.";
+                    feedback.style.color = "green";
+                } else if (gegeben > maxStrecke && gesucht === "nein") {
+                    feedback.textContent = "Richtig! Das Flugzeug kann die Strecke mit 20 l Treibstoff nicht schaffen.";
+                    feedback.style.color = "green";
+                } else {
+                    feedback.textContent = "Falsch! Bitte überprüfe deine Eingaben.";
+                    feedback.style.color = "red";
+                }
+            } else {
+                feedback.textContent = "Bitte gib eine gültige Zahl für die Strecke an.";
+                feedback.style.color = "red";
+            }
+        });
     </script>
 
 </body>
