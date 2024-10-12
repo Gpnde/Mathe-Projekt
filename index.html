@@ -250,21 +250,25 @@
             return requiredKeywords.every(keyword => loesungsweg.includes(keyword));
         }
 
-        // Funktion zur Berechnung der benötigten Strecke
-        function calculateDistance() {
-            const fuel = 20; // l
-            const consumption = 3.4; // l/100 km
-            const maxDistance = (fuel / consumption) * 100; // km
-            return maxDistance.toFixed(2); // auf 2 Dezimalstellen
-        }
-
         // Setzt den Lösungsweg bei der Absenden-Action
         document.getElementById("mathForm").addEventListener("submit", function() {
             const loesungsweg = `
-                Gegeben: Verbrauch = ${3.4} l/100 km, Treibstoff = ${20} l
-                Berechnung der maximalen Distanz: 
-                maxDistance = (Treibstoff / Verbrauch) * 100 = (${20} l / ${3.4} l/100 km) * 100 = ${calculateDistance()} km.
-                Da die Strecke ${calculateDistance()} km beträgt, ist c = ${799.99} km
+                Gegeben: 
+                - Verbrauch = 3,4 l/100 km
+                - Treibstoff = 20 l
+                - b = 595,9 km
+                - γ = 86,08°
+                - β = 48°
+
+                Berechnung der Seite c mithilfe des Sinussatzes: 
+                \[
+                \frac{c}{\sin(γ)} = \frac{b}{\sin(β)} \Rightarrow c = \frac{b \cdot \sin(γ)}{\sin(β)}
+                \]
+
+                Berechnung:
+                \[
+                c = \frac{595,9 km \cdot \sin(86,08°)}{\sin(48°)} \approx 799,99 km
+                \]
             `;
             document.getElementById("loesungsweg").value = loesungsweg;
         });
