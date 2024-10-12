@@ -78,6 +78,7 @@
             display: flex;
             justify-content: center;
             margin-bottom: 10px;
+            flex-wrap: wrap; /* Damit die Buttons in mehreren Zeilen dargestellt werden können */
         }
 
         .mini-keyboard button {
@@ -125,8 +126,6 @@
         <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
         <br>
         <br>
-        
-
     <form id="mathForm">
         <div class="form-row">
             <div>
@@ -145,6 +144,11 @@
             <button type="button" onclick="insertCharacter('γ')">γ</button>
             <button type="button" onclick="insertCharacter('α')">α</button>
             <button type="button" onclick="insertCharacter('β')">β</button>
+            <button type="button" onclick="insertCharacter('1/2')">1/2</button>
+            <button type="button" onclick="insertCharacter('1/3')">1/3</button>
+            <button type="button" onclick="insertCharacter('1/4')">1/4</button>
+            <button type="button" onclick="insertCharacter('²')">x²</button>
+            <button type="button" onclick="insertCharacter('³')">x³</button>
         </div>
 
         <div class="loesungsweg">
@@ -176,7 +180,7 @@
                 const text = activeField.value;
                 activeField.value = text.slice(0, start) + character + text.slice(end);
                 // Setze den Cursor nach dem eingefügten Zeichen
-                activeField.selectionStart = activeField.selectionEnd = start + 1;
+                activeField.selectionStart = activeField.selectionEnd = start + character.length; // Cursor nach dem Zeichen setzen
                 activeField.focus();
             }
         }
