@@ -231,16 +231,24 @@
             // Überprüfen, ob die Eingaben korrekt sind
             const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km");
             const richtigGesucht = gesucht === "c";
+            const richtigLoesungsweg = checkSolutionSteps(loesungsweg);
 
-            if (richtigGegeben && richtigGesucht) {
-                feedback.textContent = "Die Eingaben für 'gegeben' und 'gesucht' sind korrekt.";
-                feedback.style.color = "green";
+            // Ergebnis zusammenstellen
+            if (richtigGegeben && richtigGesucht && richtigLoesungsweg) {
+                feedback.textContent = "Alle Eingaben sind korrekt!";
+                feedback.style.color = "green"; // Erfolgreiche Rückmeldung
             } else {
-                feedback.textContent = "Die Eingaben für 'gegeben' und 'gesucht' sind nicht korrekt.";
-                feedback.style.color = "red";
+                feedback.textContent = "Es gibt einen Fehler in den Eingaben.";
+                feedback.style.color = "red"; // Fehlermeldung
             }
         });
-    </script>
 
+        // Funktion zur Überprüfung des Lösungswegs
+        function checkSolutionSteps(loesungsweg) {
+            // Prüfen, ob der Lösungsweg relevante Schlüsselbegriffe enthält
+            const requiredKeywords = ["γ=86,08°", "β=48°", "b=595,9 km", "c"];
+            return requiredKeywords.some(keyword => loesungsweg.includes(keyword));
+        }
+    </script>
 </body>
 </html>
