@@ -113,6 +113,24 @@
             text-align: center; /* Zentrierter Text */
             padding: 5px; /* Kleineres Padding */
         }
+
+        /* Stil für den nächsten Button */
+        .next-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: red; /* Rote Hintergrundfarbe */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px; /* Größerer Text */
+            text-align: center;
+            width: 150px; /* Breite des Buttons */
+        }
+
+        .next-button:hover {
+            background-color: darkred; /* Dunklere Farbe beim Hover */
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -177,6 +195,9 @@
 
         <!-- Feedback-Bereich -->
         <div class="feedback" id="feedback"></div>
+
+        <!-- Nächste Aufgabe Button -->
+        <a href="next_page.html"><button type="button" class="next-button">Nächste Aufgabe</button></a>
     </form>
 
     <script>
