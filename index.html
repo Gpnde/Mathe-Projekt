@@ -34,7 +34,7 @@
         margin-bottom: 5px;
     }
 
-    input[type="text"] {
+    textarea {
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
@@ -42,7 +42,7 @@
         margin-right: 10px;
     }
 
-    .form-row input[type="text"]:last-child {
+    .form-row textarea:last-child {
         margin-right: 0;
     }
 
@@ -72,9 +72,9 @@
         <h1>Mathe Flug</h1>
     </div>
     <div class="text">
-        Ein Flugzeug will von einem Stützpunkt (A) zu einem Flugplatz in den Bergen (B) fligen. <br>
-        Der verbrauch dieses Flugzeuges beträgt 3.4 l/100 km. <br>
-        Berechne ob das Flugzeug den Weg schafft, wenn das Flugzeug nur 20l treibstoff hat.
+        Ein Flugzeug will von einem Stützpunkt (A) zu einem Flugplatz in den Bergen (B) fliegen. <br>
+        Der Verbrauch dieses Flugzeugs beträgt 3,4 l/100 km. <br>
+        Berechne, ob das Flugzeug den Weg schafft, wenn es nur 20 l Treibstoff hat.
          <br>
          <br>
          <br>
@@ -85,12 +85,12 @@
         <div class="form-row">
             <div>
                 <label for="gegeben">Gegeben:</label>
-                <input type="text" id="gegeben" name="gegeben" placeholder="Hier eingeben...">
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Hier eingeben..."></textarea>
             </div>
 
             <div>
                 <label for="gesucht">Gesucht:</label>
-                <input type="text" id="gesucht" name="gesucht" placeholder="Hier eingeben...">
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Hier eingeben..."></textarea>
             </div>
         </div>
 
