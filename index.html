@@ -116,6 +116,7 @@
 
         /* Stil für den nächsten Button */
         .next-button {
+            display: none; /* Standardmäßig ausblenden */
             margin-top: 20px;
             padding: 10px;
             background-color: red; /* Rote Hintergrundfarbe */
@@ -197,7 +198,7 @@
         <div class="feedback" id="feedback"></div>
 
         <!-- Nächste Aufgabe Button -->
-        <a href="next_page.html"><button type="button" class="next-button">Nächste Aufgabe</button></a>
+        <button type="button" class="next-button" id="nextButton">Nächste Aufgabe</button>
     </form>
 
     <script>
@@ -258,9 +259,11 @@
             if (richtigGegeben && richtigGesucht && richtigLoesungsweg) {
                 feedback.textContent = "Alle Eingaben sind korrekt!";
                 feedback.style.color = "green"; // Erfolgreiche Rückmeldung
+                document.getElementById("nextButton").style.display = "block"; // Button einblenden
             } else {
                 feedback.textContent = "Es gibt einen Fehler in den Eingaben.";
                 feedback.style.color = "red"; // Fehlermeldung
+                document.getElementById("nextButton").style.display = "none"; // Button ausblenden
             }
         });
 
