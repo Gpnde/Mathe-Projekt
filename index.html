@@ -139,14 +139,23 @@
             </div>
         </div>
 
+        <div class="form-row">
+            <div>
+                <label for="zaehler">Zähler (Bruch):</label>
+                <input id="zaehler" type="number" placeholder="Zähler" onfocus="setActiveField(this)" />
+            </div>
+            <div>
+                <label for="nenner">Nenner (Bruch):</label>
+                <input id="nenner" type="number" placeholder="Nenner" onfocus="setActiveField(this)" />
+            </div>
+        </div>
+
         <!-- Mini-Tastatur -->
         <div class="mini-keyboard">
             <button type="button" onclick="insertCharacter('γ')">γ</button>
             <button type="button" onclick="insertCharacter('α')">α</button>
             <button type="button" onclick="insertCharacter('β')">β</button>
-            <button type="button" onclick="insertCharacter('1/2')">1/2</button>
-            <button type="button" onclick="insertCharacter('1/3')">1/3</button>
-            <button type="button" onclick="insertCharacter('1/4')">1/4</button>
+            <button type="button" onclick="insertFraction()">Bruch einsetzen</button>
             <button type="button" onclick="insertCharacter('²')">x²</button>
             <button type="button" onclick="insertCharacter('³')">x³</button>
         </div>
@@ -182,6 +191,20 @@
                 // Setze den Cursor nach dem eingefügten Zeichen
                 activeField.selectionStart = activeField.selectionEnd = start + character.length; // Cursor nach dem Zeichen setzen
                 activeField.focus();
+            }
+        }
+
+        // Funktion zum Einfügen des Bruchs in die Textarea
+        function insertFraction() {
+            const zaehler = document.getElementById("zaehler").value;
+            const nenner = document.getElementById("nenner").value;
+
+            if (zaehler && nenner) {
+                insertCharacter(`${zaehler}/${nenner}`);
+                document.getElementById("zaehler").value = ""; // Zähler zurücksetzen
+                document.getElementById("nenner").value = ""; // Nenner zurücksetzen
+            } else {
+                alert("Bitte sowohl Zähler als auch Nenner eingeben.");
             }
         }
 
