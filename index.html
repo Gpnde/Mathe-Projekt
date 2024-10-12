@@ -71,18 +71,30 @@
     }
 
     .mini-keyboard button {
-        font-size: 20px;
+        font-size: 24px; /* Größerer Text */
         margin: 5px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+        padding: 15px; /* Größere Buttons */
+        border-radius: 8px;
+        border: 2px solid #333; /* Sichtbare Umrandung */
         background-color: #f0f0f0;
         cursor: pointer;
+        color: black; /* Textfarbe schwarz für Kontrast */
+        font-weight: bold; /* Fettschrift für bessere Lesbarkeit */
     }
 
     .mini-keyboard button:hover {
         background-color: #ddd;
     }
+
+    /* Kleinere Breite, aber zweizeiliger Absenden-Button */
+    .submit-button {
+        width: 100px; /* Breite des Absenden-Buttons */
+        height: 60px; /* Höhe, um ihn zweizeilig zu machen */
+        font-size: 14px;
+        text-align: center; /* Zentrierter Text */
+        padding: 5px; /* Kleineres Padding */
+    }
+
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -128,7 +140,7 @@
         </div>
 
         <br>
-        <button type="submit">Absenden</button>
+        <button type="submit" class="submit-button">Absenden</button>
     </form>
 
     <script>
