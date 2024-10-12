@@ -48,6 +48,14 @@
             margin-right: 0;
         }
 
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
         button {
             padding: 10px;
             background-color: #4CAF50;
@@ -141,14 +149,11 @@
         <div class="form-row">
             <div>
                 <label for="zaehler">Zähler (Bruch):</label>
-                <input id="zaehler" type="number" placeholder="Zähler" onfocus="setActiveField(this)" />
+                <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
             </div>
-        </div>
-        
-        <div class="form-row">
             <div>
                 <label for="nenner">Nenner (Bruch):</label>
-                <input id="nenner" type="number" placeholder="Nenner" onfocus="setActiveField(this)" />
+                <input id="nenner" type="text" placeholder="Nenner" onfocus="setActiveField(this)" />
             </div>
         </div>
 
@@ -224,10 +229,15 @@
             feedback.textContent = ""; // Vorherige Rückmeldung löschen
 
             // Überprüfen, ob die Eingaben korrekt sind
-            if (gegeben === "γ=86,08°, β=48°, b=595,9 km" && gesucht === "c") {
-                feedback.textContent += "Die Eingaben für 'gegeben' und 'gesucht' sind korrekt.\n";
+            const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km");
+            const richtigGesucht = gesucht === "c";
+
+            if (richtigGegeben && richtigGesucht) {
+                feedback.textContent = "Die Eingaben für 'gegeben' und 'gesucht' sind korrekt.";
+                feedback.style.color = "green";
             } else {
-                feedback.textContent += "Die Eingaben für 'gegeben' und 'gesucht' sind nicht korrekt.\n";
+                feedback.textContent = "Die Eingaben für 'gegeben' und 'gesucht' sind nicht korrekt.";
+                feedback.style.color = "red";
             }
         });
     </script>
