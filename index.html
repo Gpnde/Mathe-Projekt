@@ -130,14 +130,11 @@
         <div class="form-row">
             <div>
                 <label for="gegeben">Gegeben:</label>
-                <textarea id="gegeben" name="gegeben" rows="3" placeholder="γ=86,08°, β=48°, b=595,9 km" onfocus="setActiveField(this)"></textarea>
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
-        </div>
-
-        <div class="form-row">
             <div>
                 <label for="gesucht">Gesucht:</label>
-                <textarea id="gesucht" name="gesucht" rows="3" placeholder="c" onfocus="setActiveField(this)"></textarea>
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben..." onfocus="setActiveField(this)"></textarea>
             </div>
         </div>
 
@@ -167,7 +164,7 @@
 
         <div class="loesungsweg">
             <label for="loesungsweg">Lösungsweg:</label>
-            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier eingeben..." onfocus="setActiveField(this)"></textarea>
+            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
         <br>
@@ -230,4 +227,10 @@
             if (gegeben === "γ=86,08°, β=48°, b=595,9 km" && gesucht === "c") {
                 feedback.textContent += "Die Eingaben für 'gegeben' und 'gesucht' sind korrekt.\n";
             } else {
-                feedback.textContent += "
+                feedback.textContent += "Die Eingaben für 'gegeben' und 'gesucht' sind nicht korrekt.\n";
+            }
+        });
+    </script>
+
+</body>
+</html>
