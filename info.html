@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="de">
 <head>
     <style>
@@ -184,6 +184,7 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
             <button type="button" onclick="insertFraction()">Bruch einsetzen</button>
             <button type="button" onclick="insertCharacter('²')">x²</button>
             <button type="button" onclick="insertCharacter('³')">x³</button>
+            <button type="button" onclick="insertCharacter('√')">√</button> <!-- Wurzel-Button -->
         </div>
 
         <div class="loesungsweg">
@@ -203,7 +204,7 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
         <div class="feedback" id="feedback"></div>
 
         <!-- Nächste Aufgabe Button -->
-        <button type="button" class="next-button" id="nextButton">Nächste Aufgabe</button>
+        <button type="button" class="next-button" id="nextButton" onclick="window.location.href='info.html'">Nächste Aufgabe</button>
     </form>
 
     <script>
