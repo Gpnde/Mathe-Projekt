@@ -118,24 +118,6 @@
             padding: 5px;
         }
 
-        .next-button {
-            display: none;
-            margin-top: 20px;
-            padding: 10px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            text-align: center;
-            width: 150px;
-        }
-
-        .next-button:hover {
-            background-color: darkred;
-        }
-
         .error {
             border: 1px solid rgba(255, 0, 0, 0.5);
             background-color: rgba(255, 0, 0, 0.1);
@@ -217,8 +199,6 @@
         <button type="submit" class="submit-button">Überprüfen</button>
     </form>
 
-    <button id="nextButton" class="next-button" onclick="goToNext()">Nächste Aufgabe</button>
-
     <script>
         let currentField = null;
 
@@ -299,10 +279,6 @@
 
             // Nächster Button anzeigen, wenn alles ausgefüllt ist
             document.getElementById("nextButton").style.display = hasError ? "none" : "block";
-        }
-
-        function goToNext() {
-            alert("Nächste Aufgabe");
         }
     </script>
 </body>
