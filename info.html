@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <style>
@@ -234,103 +234,61 @@
         // Funktion zur Fokussierung des aktiven Textfeldes
         function setActiveField(field) {
             activeField = field;
-            // Entfernen der Fehlerklasse bei Fokussierung
-            field.classList.remove('error');
+            // Überprüfen, ob ein Fehler aufgetreten ist
+            if (field.classList.contains('error')) {
+                field.classList.remove('error'); // Fehler zurücksetzen
+            }
         }
 
-        // Funktion zum Einfügen von Zeichen in das aktive Textfeld
+        // Funktion zum Einfügen von Zeichen
         function insertCharacter(character) {
             if (activeField) {
-                const start = activeField.selectionStart;
-                const end = activeField.selectionEnd;
-                const text = activeField.value;
-                activeField.value = text.slice(0, start) + character + text.slice(end);
-                // Setze den Cursor nach dem eingefügten Zeichen
-                activeField.selectionStart = activeField.selectionEnd = start + character.length; // Cursor nach dem Zeichen setzen
-                activeField.focus();
+                activeField.value += character; // Zeichen in das aktive Feld einfügen
+                activeField.focus(); // Fokussiere das aktive Feld
             }
         }
 
-        // Funktion zum Einfügen des Bruchs in die Textarea
+        // Funktion zum Einfügen eines Bruchs
         function insertFraction() {
+            if (activeField) {
+                activeField.value += "Bruch"; // Platzhalter für Bruch
+                activeField.focus(); // Fokussiere das aktive Feld
+            }
+        }
+
+        // Formularüberprüfung und Lösungsweg-Logik
+        document.getElementById("mathForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Verhindere das Standardverhalten des Formulars
+
+            // Eingabefelder abrufen
+            const gegeben = document.getElementById("gegeben").value;
+            const gesucht = document.getElementById("gesucht").value;
             const zaehler = document.getElementById("zaehler").value;
             const nenner = document.getElementById("nenner").value;
-
-            if (zaehler && nenner) {
-                insertCharacter(`${zaehler}/${nenner}`);
-                document.getElementById("zaehler").value = ""; // Zähler zurücksetzen
-                document.getElementById("nenner").value = ""; // Nenner zurücksetzen
-            } else {
-                alert("Bitte sowohl Zähler als auch Nenner eingeben.");
-            }
-        }
-
-        // Funktion zur Überprüfung der Eingaben
-        document.getElementById("mathForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Verhindert das Standard-Formularverhalten
-
-            // Eingaben abrufen
-            const gegeben = document.getElementById("gegeben");
-            const gesucht = document.getElementById("gesucht");
             const loesungsweg = document.getElementById("loesungsweg");
+            const treibstoff = document.getElementById("Insgesamt benötigter Treibstoff");
 
-            // Feedback-Bereich
-            const feedback = document.getElementById("feedback");
-            feedback.textContent = ""; // Vorherige Rückmeldung löschen
+            // Hier wird der Lösungsweg als Beispiel zugewiesen
+            const loesungswegText = "Lösungsweg: \n1. Berechnung von ... \n2. Bestimmung des Treibstoffbedarfs...";
+            loesungsweg.value = loesungswegText; // Fügen Sie den Lösungsweg in das Textfeld ein
 
-            // Überprüfen, ob die Eingaben korrekt sind
-            const richtigGegeben = ["γ=86,08°", "β=48°", "b=595,9 km", "c=799,99 km"].every(keyword => gegeben.value.includes(keyword));
-            const richtigGesucht = gesucht.value.trim().toLowerCase() === "a";
-            const richtigLoesungsweg = checkSolutionSteps(loesungsweg.value);
-
-            // Ergebnis zusammenstellen
-            if (richtigGegeben && richtigGesucht && richtigLoesungsweg) {
-                feedback.textContent = "Alle Eingaben sind korrekt!";
-                feedback.style.color = "green"; // Erfolgreiche Rückmeldung
-                document.getElementById("nextButton").style.display = "block"; // Button einblenden
-                // Entferne Fehlerklassen
-                gegeben.classList.remove('error');
-                gesucht.classList.remove('error');
-                loesungsweg.classList.remove('error');
-            } else {
-                feedback.textContent = "Es gibt einen Fehler in den Eingaben.";
-                feedback.style.color = "red"; // Fehlermeldung
-                document.getElementById("nextButton").style.display = "none"; // Button ausblenden
-                
-                // Fehler markieren
-                if (!richtigGegeben) {
-                    gegeben.classList.add('error'); // Fehlerklasse hinzufügen
-                }
-                if (!richtigGesucht) {
-                    gesucht.classList.add('error'); // Fehlerklasse hinzufügen
-                }
-                if (!richtigLoesungsweg) {
-                    loesungsweg.classList.add('error'); // Fehlerklasse hinzufügen
-                }
+            // Eingaben überprüfen
+            if (!gegeben || !gesucht || !zaehler || !nenner) {
+                if (!gegeben) document.getElementById("gegeben").classList.add('error');
+                if (!gesucht) document.getElementById("gesucht").classList.add('error');
+                if (!zaehler) document.getElementById("zaehler").classList.add('error');
+                if (!nenner) document.getElementById("nenner").classList.add('error');
+                document.getElementById("feedback").innerText = "Bitte fülle alle Eingabefelder aus!";
+                return; // Beenden Sie die Funktion, wenn Eingaben fehlen
             }
-        });
 
-        // Funktion zur Überprüfung des Lösungswegs
-        function checkSolutionSteps(loesungsweg) {
-            // Prüfen, ob der Lösungsweg relevante Schlüsselbegriffe enthält
-            const requiredKeywords = [
-                "c=b/sin(β)*sin(γ)",
-                "=595,9 km/sin(48°)*sin(86,08°)=799,99 km",
-                "c=799,99 km"
-            ];
-            return requiredKeywords.every(keyword => loesungsweg.includes(keyword));
-        }
+            // Hier kann die Logik zur Berechnung des Treibstoffs implementiert werden
+            const benötigterTreibstoff = 100; // Beispielwert
+            treibstoff.value = `Benötigter Treibstoff: ${benötigterTreibstoff} Liter`; // Setzen Sie den Treibstoffwert
+            document.getElementById("feedback").innerText = ""; // Löschen Sie Feedback
 
-        // Setzt den Lösungsweg bei der Absenden-Action
-        document.getElementById("mathForm").addEventListener("submit", function() {
-            const loesungsweg = `
-                   a=α=180°-β-γ=180°-48°-86,08°=45,92° \n
-                   a²=b²+c²-2bc*cos(α) \n
-                   =(595,9km)²+(799,99km)²-2*595,9km*799,99km*cos(45,92°)=331817,0467km \n
-                   = √331817,0467km²=576,03 km \n
-                   a= 576,03 km
-            `;
-            document.getElementById("loesungsweg").value = loesungsweg;
+            // Zeige den nächsten Button an
+            document.getElementById("nextButton").style.display = "block"; // Button anzeigen
         });
     </script>
 </body>
