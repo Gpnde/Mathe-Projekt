@@ -127,6 +127,11 @@
             border: 1px solid rgba(0, 128, 0, 0.5);
             background-color: rgba(0, 128, 0, 0.1);
         }
+
+        .highlight-error {
+            color: red;
+            font-weight: bold;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -221,6 +226,21 @@
             }
         }
 
+        function highlightErrors(userInput, correctAnswer) {
+            let highlighted = '';
+            let maxLength = Math.max(userInput.length, correctAnswer.length);
+            for (let i = 0; i < maxLength; i++) {
+                const userChar = userInput[i] || '';
+                const correctChar = correctAnswer[i] || '';
+                if (userChar === correctChar) {
+                    highlighted += userChar; // Kein Fehler, normaler Buchstabe
+                } else {
+                    highlighted += `<span class="highlight-error">${userChar}</span>`; // Fehlerhafter Buchstabe
+                }
+            }
+            return highlighted;
+        }
+
         document.getElementById("mathForm").onsubmit = function(event) {
             event.preventDefault(); // Verhindert das normale Absenden des Formulars
             
@@ -272,7 +292,7 @@
 
             // Ergebnisse anzeigen
             if (hasError) {
-                feedback.innerText = "Bitte alle erforderlichen Felder ausfüllen.";
+                feedback.innerHTML = "Bitte alle erforderlichen Felder ausfüllen.";
                 successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
             } else {
                 // Überprüfung der Lösungen
@@ -288,7 +308,10 @@
                     feedback.innerText = ""; // Fehlernachricht leeren
                     successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
                 } else {
-                    feedback.innerText = "Leider falsch! Bitte überprüfe deine Antworten.";
+                    feedback.innerHTML = "Leider falsch! Bitte überprüfe deine Antworten.<br>" +
+                                        "Zähler: " + highlightErrors(zaehler.value.trim(), correctZähler) + "<br>" +
+                                        "Nenner: " + highlightErrors(nenner.value.trim(), correctNenner) + "<br>" +
+                                        "Treibstoff: " + highlightErrors(document.getElementById("treibstoff").value.trim(), correctTreibstoff);
                     successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
                 }
             }
