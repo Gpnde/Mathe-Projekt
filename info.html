@@ -74,6 +74,12 @@
             flex-grow: 1; /* Nimmt den restlichen Platz ein */
         }
 
+        /* Neu: Breite und Höhe des Lösungsweg-Textfeldes */
+        .loesungsweg textarea {
+            width: 100%; /* Volle Breite */
+            height: 200px; /* Höhe für 10 Zeilen (ca. 20px pro Zeile) */
+        }
+
         /* Feedback-Bereich */
         .feedback {
             margin-top: 20px;
@@ -144,7 +150,7 @@
     <br>
     <br>
     <div class="text">
-Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte das Flugzeug zunächst zur Tankstelle (C) fliegen, um aufzutanken, und dann weiter zum Berg (B) zu fliegen. <br>
+        Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte das Flugzeug zunächst zur Tankstelle (C) fliegen, um aufzutanken, und dann weiter zum Berg (B) zu fliegen. <br>
         Berechne, wie viel Treibstoff mindestens nachgetankt werden muss, damit das Flugzeug mit dem restlichen Treibstoff und dem zusätzlichen Sprit sowohl zum Berg (B) <br>
         als auch anschließend sicher zurück zur Insel (A) fliegen kann.
         <br>
@@ -192,7 +198,7 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
             <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
-          <div class="Insgesamt benötigter Treibstoff">
+        <div class="Insgesamt benötigter Treibstoff">
             <label for="Insgesamt benötigter Treibstoff">Insgesamt benötigter Treibstoff:</label>
             <textarea id="Insgesamt benötigter Treibstoff" name="Insgesamt benötigter Treibstoff" placeholder="Hier Insgesamt benötigter Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
@@ -287,10 +293,10 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
         // Setzt den Lösungsweg bei der Absenden-Action
         document.getElementById("mathForm").addEventListener("submit", function() {
             const loesungsweg = `
-                   a=α=180°-β-γ=180°-48°-86,08°=45,92° /n
-                   a²=b²+c²-2bc*cos(α) /n
-                   =(595,9km)²+(799,99km)²-2*595,9km*799,99km*cos(45,92°)=331817,0467km /n
-                   = √331817,0467km²=576,03 km /n
+                   a=α=180°-β-γ=180°-48°-86,08°=45,92° \n
+                   a²=b²+c²-2bc*cos(α) \n
+                   =(595,9km)²+(799,99km)²-2*595,9km*799,99km*cos(45,92°)=331817,0467km \n
+                   = √331817,0467km²=576,03 km \n
                    a= 576,03 km
             `;
             document.getElementById("loesungsweg").value = loesungsweg;
