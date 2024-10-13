@@ -151,11 +151,11 @@
         <div class="form-row">
             <div>
                 <label for="gegeben">Gegeben:</label>
-                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben...">Flugzeug (A) - 200L Treibstoff, Tankstelle (C) - 150L Treibstoff, Berg (B) - 300L Treibstoff, Distanz A-C - 500km, Distanz C-B - 600km, Treibstoffverbrauch 1L/km.</textarea>
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben..."></textarea>
             </div>
             <div>
                 <label for="gesucht">Gesucht:</label>
-                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben...">Mindestens nachzutankender Treibstoff, um B zu erreichen und dann nach A zurückzukehren.</textarea>
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben..."></textarea>
             </div>
         </div>
 
@@ -163,11 +163,11 @@
         <div style="display: flex; flex-direction: column; align-items: center;">
             <div>
                 <label for="zaehler">Zähler (Bruch):</label>
-                <input id="zaehler" type="text" placeholder="Zähler" value="300" onfocus="setActiveField(this)" />
+                <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
             </div>
             <div>
                 <label for="nenner">Nenner (Bruch):</label>
-                <input id="nenner" type="text" placeholder="Nenner" value="200" onfocus="setActiveField(this)" />
+                <input id="nenner" type="text" placeholder="Nenner" onfocus="setActiveField(this)" />
             </div>
         </div>
 
@@ -184,13 +184,13 @@
 
         <div class="loesungsweg">
             <label for="loesungsweg">Lösungsweg:</label>
-            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)">1. Von A nach C: 200L verbraucht<br>2. Von C nach B: 600L verbraucht<br>3. Zurück nach A: 500L verbraucht<br>4. Insgesamt: 200 + 600 + 500 = 1300L<br>5. Nachzutankender Treibstoff: 1300L - 200L = 1100L</textarea>
+            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
         <!-- Gesamt benötigter Treibstoff -->
         <div class="treibstoff">
             <label for="treibstoff">Insgesamt benötigter Treibstoff:</label>
-            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)">1100L</textarea>
+            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
         <div class="feedback" id="feedback"></div>
@@ -270,27 +270,27 @@
                 nenner.classList.remove('error');
             }
 
-            // Erfolgshervorhebung
-            if (zaehler.value !== "") {
-                zaehler.classList.remove('error');
-                zaehler.classList.add('success-input'); // Erfolgshervorhebung
-            } else {
-                zaehler.classList.remove('success-input'); // Remove success highlight if left empty
-            }
-            if (nenner.value !== "") {
-                nenner.classList.remove('error');
-                nenner.classList.add('success-input'); // Erfolgshervorhebung
-            } else {
-                nenner.classList.remove('success-input'); // Remove success highlight if left empty
-            }
-
             // Ergebnisse anzeigen
             if (hasError) {
                 feedback.innerText = "Bitte alle erforderlichen Felder ausfüllen.";
                 successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
             } else {
-                feedback.innerText = ""; // Fehlernachricht leeren
-                successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
+                // Überprüfung der Lösungen
+                const correctZähler = "300"; // Korrekte Lösung für den Zähler
+                const correctNenner = "200"; // Korrekte Lösung für den Nenner
+                const correctTreibstoff = "1100L"; // Korrekte Lösung für den benötigten Treibstoff
+
+                const isZählerCorrect = zaehler.value.trim() === correctZähler;
+                const isNennerCorrect = nenner.value.trim() === correctNenner;
+                const isTreibstoffCorrect = document.getElementById("treibstoff").value.trim() === correctTreibstoff;
+
+                if (isZählerCorrect && isNennerCorrect && isTreibstoffCorrect) {
+                    feedback.innerText = ""; // Fehlernachricht leeren
+                    successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
+                } else {
+                    feedback.innerText = "Leider falsch! Bitte überprüfe deine Antworten.";
+                    successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
+                }
             }
         }
     </script>
