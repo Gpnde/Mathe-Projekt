@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html lang="de">
 <head>
     <style>
@@ -12,7 +12,7 @@
             padding: 10px;
             width: 100%;
             height: 70px;
-        } 
+        }
 
         body {
             font-family: Arial, sans-serif;
@@ -257,7 +257,7 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
             feedback.textContent = ""; // Vorherige Rückmeldung löschen
 
             // Überprüfen, ob die Eingaben korrekt sind
-            const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km") || gegeben.includes("c= 799,99 km");
+            const richtigGegeben = ["γ=86,08°", "β=48°", "b=595,9 km", "c=799,99 km"].every(keyword => gegeben.includes(keyword));
             const richtigGesucht = gesucht === "a";
             const richtigLoesungsweg = checkSolutionSteps(loesungsweg);
 
@@ -292,7 +292,6 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
                    =(595,9km)²+(799,99km)²-2*595,9km*799,99km*cos(45,92°)=331817,0467km /n
                    = √331817,0467km²=576,03 km /n
                    a= 576,03 km
-
             `;
             document.getElementById("loesungsweg").value = loesungsweg;
         });
