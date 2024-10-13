@@ -80,6 +80,17 @@
             height: 200px; /* Höhe für 10 Zeilen (ca. 20px pro Zeile) */
         }
 
+        /* Neuer Stil für das Textfeld "Insgesamt benötigter Treibstoff" */
+        .treibstoff {
+            margin-top: 10px; /* Abstand verringert */
+            margin-bottom: 10px; /* Abstand unten */
+        }
+
+        .treibstoff textarea {
+            width: 100%; /* Volle Breite */
+            height: 200px; /* Höhe für 10 Zeilen */
+        }
+
         /* Feedback-Bereich */
         .feedback {
             margin-top: 20px;
@@ -198,7 +209,8 @@
             <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
-        <div class="Insgesamt benötigter Treibstoff">
+        <!-- Gesamt benötigter Treibstoff -->
+        <div class="treibstoff">
             <label for="Insgesamt benötigter Treibstoff">Insgesamt benötigter Treibstoff:</label>
             <textarea id="Insgesamt benötigter Treibstoff" name="Insgesamt benötigter Treibstoff" placeholder="Hier Insgesamt benötigter Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
@@ -217,12 +229,12 @@
         // Variable zum Speichern des aktiven Textfeldes
         let activeField = null;
 
-        // Funktion, um das aktuell aktive Textfeld zu speichern
+        // Funktion zur Fokussierung des aktiven Textfeldes
         function setActiveField(field) {
             activeField = field;
         }
 
-        // Funktion zum Einfügen eines Zeichens in das aktive Textfeld
+        // Funktion zum Einfügen von Zeichen in das aktive Textfeld
         function insertCharacter(character) {
             if (activeField) {
                 const start = activeField.selectionStart;
