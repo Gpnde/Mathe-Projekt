@@ -253,12 +253,12 @@ Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte da
             const loesungsweg = document.getElementById("loesungsweg").value.trim();
 
             // Feedback-Bereich
-            const feedback = document.getElementById("feedback");
+            const feedback = document.getElementById("feedback");				
             feedback.textContent = ""; // Vorherige Rückmeldung löschen
 
             // Überprüfen, ob die Eingaben korrekt sind
-            const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km");
-            const richtigGesucht = gesucht === "c";
+            const richtigGegeben = gegeben.includes("γ=86,08°") || gegeben.includes("β=48°") || gegeben.includes("b=595,9 km") || gegeben.includes("c= 799,99 km");
+            const richtigGesucht = gesucht === "a";
             const richtigLoesungsweg = checkSolutionSteps(loesungsweg);
 
             // Ergebnis zusammenstellen
