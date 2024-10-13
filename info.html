@@ -151,11 +151,11 @@
         <div class="form-row">
             <div>
                 <label for="gegeben">Gegeben:</label>
-                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben..." onfocus="setActiveField(this)"></textarea>
+                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben...">Flugzeug (A) - 200L Treibstoff, Tankstelle (C) - 150L Treibstoff, Berg (B) - 300L Treibstoff, Distanz A-C - 500km, Distanz C-B - 600km, Treibstoffverbrauch 1L/km.</textarea>
             </div>
             <div>
                 <label for="gesucht">Gesucht:</label>
-                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben..." onfocus="setActiveField(this)"></textarea>
+                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben...">Mindestens nachzutankender Treibstoff, um B zu erreichen und dann nach A zurückzukehren.</textarea>
             </div>
         </div>
 
@@ -163,11 +163,11 @@
         <div style="display: flex; flex-direction: column; align-items: center;">
             <div>
                 <label for="zaehler">Zähler (Bruch):</label>
-                <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
+                <input id="zaehler" type="text" placeholder="Zähler" value="300" onfocus="setActiveField(this)" />
             </div>
             <div>
                 <label for="nenner">Nenner (Bruch):</label>
-                <input id="nenner" type="text" placeholder="Nenner" onfocus="setActiveField(this)" />
+                <input id="nenner" type="text" placeholder="Nenner" value="200" onfocus="setActiveField(this)" />
             </div>
         </div>
 
@@ -184,13 +184,13 @@
 
         <div class="loesungsweg">
             <label for="loesungsweg">Lösungsweg:</label>
-            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
+            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)">1. Von A nach C: 200L verbraucht<br>2. Von C nach B: 600L verbraucht<br>3. Zurück nach A: 500L verbraucht<br>4. Insgesamt: 200 + 600 + 500 = 1300L<br>5. Nachzutankender Treibstoff: 1300L - 200L = 1100L</textarea>
         </div>
 
         <!-- Gesamt benötigter Treibstoff -->
         <div class="treibstoff">
             <label for="treibstoff">Insgesamt benötigter Treibstoff:</label>
-            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
+            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)">1100L</textarea>
         </div>
 
         <div class="feedback" id="feedback"></div>
@@ -232,29 +232,45 @@
             const feedback = document.getElementById("feedback");
             const successMessage = document.getElementById("successMessage");
 
-            let hasError = false; // Variable für Fehlerüberprüfung
+            let hasError = false;
 
-            // Überprüfung der Eingaben
-            if (gegeben.value === "") {
-                gegeben.classList.add('error'); // Fehler-Highlight
+            // Validierung
+            if (gegeben.value.trim() === "") {
+                gegeben.classList.add('error');
                 hasError = true;
             } else {
                 gegeben.classList.remove('error');
             }
-            if (gesucht.value === "") {
-                gesucht.classList.add('error'); // Fehler-Highlight
+
+            if (gesucht.value.trim() === "") {
+                gesucht.classList.add('error');
                 hasError = true;
             } else {
                 gesucht.classList.remove('error');
             }
-            if (loesungsweg.value === "") {
-                loesungsweg.classList.add('error'); // Fehler-Highlight
+
+            if (loesungsweg.value.trim() === "") {
+                loesungsweg.classList.add('error');
                 hasError = true;
             } else {
                 loesungsweg.classList.remove('error');
             }
 
-            // Zähler und Nenner optional machen
+            if (zaehler.value.trim() === "") {
+                zaehler.classList.add('error');
+                hasError = true;
+            } else {
+                zaehler.classList.remove('error');
+            }
+
+            if (nenner.value.trim() === "") {
+                nenner.classList.add('error');
+                hasError = true;
+            } else {
+                nenner.classList.remove('error');
+            }
+
+            // Erfolgshervorhebung
             if (zaehler.value !== "") {
                 zaehler.classList.remove('error');
                 zaehler.classList.add('success-input'); // Erfolgshervorhebung
@@ -276,9 +292,6 @@
                 feedback.innerText = ""; // Fehlernachricht leeren
                 successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
             }
-
-            // Nächster Button anzeigen, wenn alles ausgefüllt ist
-            document.getElementById("nextButton").style.display = hasError ? "none" : "block";
         }
     </script>
 </body>
