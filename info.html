@@ -127,11 +127,6 @@
             border: 1px solid rgba(0, 128, 0, 0.5);
             background-color: rgba(0, 128, 0, 0.1);
         }
-
-        .highlight-error {
-            color: red;
-            font-weight: bold;
-        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -226,21 +221,6 @@
             }
         }
 
-        function highlightErrors(userInput, correctAnswer) {
-            let highlighted = '';
-            let maxLength = Math.max(userInput.length, correctAnswer.length);
-            for (let i = 0; i < maxLength; i++) {
-                const userChar = userInput[i] || '';
-                const correctChar = correctAnswer[i] || '';
-                if (userChar === correctChar) {
-                    highlighted += userChar; // Kein Fehler, normaler Buchstabe
-                } else {
-                    highlighted += `<span class="highlight-error">${userChar}</span>`; // Fehlerhafter Buchstabe
-                }
-            }
-            return highlighted;
-        }
-
         document.getElementById("mathForm").onsubmit = function(event) {
             event.preventDefault(); // Verhindert das normale Absenden des Formulars
             
@@ -249,6 +229,7 @@
             const loesungsweg = document.getElementById("loesungsweg");
             const zaehler = document.getElementById("zaehler");
             const nenner = document.getElementById("nenner");
+            const treibstoff = document.getElementById("treibstoff");
             const feedback = document.getElementById("feedback");
             const successMessage = document.getElementById("successMessage");
 
@@ -276,46 +257,36 @@
                 loesungsweg.classList.remove('error');
             }
 
-            if (zaehler.value.trim() === "") {
+            if (zaehler.value.trim() === "" || nenner.value.trim() === "") {
                 zaehler.classList.add('error');
-                hasError = true;
-            } else {
-                zaehler.classList.remove('error');
-            }
-
-            if (nenner.value.trim() === "") {
                 nenner.classList.add('error');
                 hasError = true;
             } else {
+                zaehler.classList.remove('error');
                 nenner.classList.remove('error');
             }
 
-            // Ergebnisse anzeigen
-            if (hasError) {
-                feedback.innerHTML = "Bitte alle erforderlichen Felder ausfüllen.";
-                successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
+            // Wenn keine Fehler gefunden wurden, führen Sie die Berechnung durch
+            if (!hasError) {
+                const a = 576.03;
+                const b = 595.9;
+                const c = 799.99;
+
+                // Berechnung
+                const gesamtEntfernung = a + b + c; // Gesamte Entfernung
+                const treibstoffProHundertKm = 3.4; // Treibstoffverbrauch pro 100 km
+                const treibstoffGesamt = (gesamtEntfernung / 100) * treibstoffProHundertKm; // Gesamtverbrauch
+
+                treibstoff.value = treibstoffGesamt.toFixed(2) + " l"; // Setze den benötigten Treibstoff in das Textfeld
+
+                // Erfolgsnachricht und Feedback
+                successMessage.style.display = 'block'; // Erfolgsnachricht anzeigen
+                feedback.textContent = ""; // Feedback zurücksetzen
             } else {
-                // Überprüfung der Lösungen
-                const correctZähler = "300"; // Korrekte Lösung für den Zähler
-                const correctNenner = "200"; // Korrekte Lösung für den Nenner
-                const correctTreibstoff = "1100L"; // Korrekte Lösung für den benötigten Treibstoff
-
-                const isZählerCorrect = zaehler.value.trim() === correctZähler;
-                const isNennerCorrect = nenner.value.trim() === correctNenner;
-                const isTreibstoffCorrect = document.getElementById("treibstoff").value.trim() === correctTreibstoff;
-
-                if (isZählerCorrect && isNennerCorrect && isTreibstoffCorrect) {
-                    feedback.innerText = ""; // Fehlernachricht leeren
-                    successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
-                } else {
-                    feedback.innerHTML = "Leider falsch! Bitte überprüfe deine Antworten.<br>" +
-                                        "Zähler: " + highlightErrors(zaehler.value.trim(), correctZähler) + "<br>" +
-                                        "Nenner: " + highlightErrors(nenner.value.trim(), correctNenner) + "<br>" +
-                                        "Treibstoff: " + highlightErrors(document.getElementById("treibstoff").value.trim(), correctTreibstoff);
-                    successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
-                }
+                successMessage.style.display = 'none'; // Erfolgsnachricht ausblenden
+                feedback.textContent = "Bitte fülle alle erforderlichen Felder aus."; // Feedback anzeigen
             }
-        }
+        };
     </script>
 </body>
 </html>
