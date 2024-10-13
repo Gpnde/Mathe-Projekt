@@ -223,73 +223,66 @@
 
         <br>
         <button type="submit" class="submit-button">Überprüfen</button>
-        <button type="button" id="nextButton" class="next-button">Nächster Schritt</button>
-        <div id="feedback" class="feedback"></div>
+        <button type="button" id="nextButton" class="next-button" onclick="goToNext()">Nächste Aufgabe</button>
     </form>
-
+    
+    <div class="feedback" id="feedback"></div>
+    
     <script>
-        // Variablen für die aktiven Textfelder
-        let activeField = null;
+        let currentField = null;
 
-        // Funktion zur Fokussierung des aktiven Textfeldes
         function setActiveField(field) {
-            activeField = field;
-            // Überprüfen, ob ein Fehler aufgetreten ist
-            if (field.classList.contains('error')) {
-                field.classList.remove('error'); // Fehler zurücksetzen
-            }
+            currentField = field;
         }
 
-        // Funktion zum Einfügen von Zeichen
         function insertCharacter(character) {
-            if (activeField) {
-                activeField.value += character; // Zeichen in das aktive Feld einfügen
-                activeField.focus(); // Fokussiere das aktive Feld
+            if (currentField) {
+                currentField.value += character;
+                currentField.focus(); // Setzt den Fokus zurück auf das aktuelle Feld
             }
         }
 
-        // Funktion zum Einfügen eines Bruchs
         function insertFraction() {
-            if (activeField) {
-                activeField.value += "Bruch"; // Platzhalter für Bruch
-                activeField.focus(); // Fokussiere das aktive Feld
+            if (currentField) {
+                currentField.value += 'a/b'; // Platzhalter für Bruch
+                currentField.focus(); // Setzt den Fokus zurück auf das aktuelle Feld
             }
         }
 
-        // Formularüberprüfung und Lösungsweg-Logik
-        document.getElementById("mathForm").addEventListener("submit", function(event) {
-            event.preventDefault(); // Verhindere das Standardverhalten des Formulars
-
-            // Eingabefelder abrufen
+        document.getElementById("mathForm").onsubmit = function(event) {
+            event.preventDefault(); // Verhindert das normale Absenden des Formulars
+            
             const gegeben = document.getElementById("gegeben").value;
             const gesucht = document.getElementById("gesucht").value;
+            const loesungsweg = document.getElementById("loesungsweg").value;
             const zaehler = document.getElementById("zaehler").value;
             const nenner = document.getElementById("nenner").value;
-            const loesungsweg = document.getElementById("loesungsweg");
-            const treibstoff = document.getElementById("Insgesamt benötigter Treibstoff");
 
-            // Hier wird der Lösungsweg als Beispiel zugewiesen
-            const loesungswegText = "Lösungsweg: \n1. Berechnung von ... \n2. Bestimmung des Treibstoffbedarfs...";
-            loesungsweg.value = loesungswegText; // Fügen Sie den Lösungsweg in das Textfeld ein
-
-            // Eingaben überprüfen
-            if (!gegeben || !gesucht || !zaehler || !nenner) {
-                if (!gegeben) document.getElementById("gegeben").classList.add('error');
-                if (!gesucht) document.getElementById("gesucht").classList.add('error');
-                if (!zaehler) document.getElementById("zaehler").classList.add('error');
-                if (!nenner) document.getElementById("nenner").classList.add('error');
-                document.getElementById("feedback").innerText = "Bitte fülle alle Eingabefelder aus!";
-                return; // Beenden Sie die Funktion, wenn Eingaben fehlen
+            // Hier können die Berechnungen und Überprüfungen durchgeführt werden
+            let feedback = "Überprüfung abgeschlossen.";
+            
+            // Beispielüberprüfung
+            if (gegeben === "" || gesucht === "" || loesungsweg === "") {
+                feedback = "Bitte alle erforderlichen Felder ausfüllen.";
             }
+            
+            // Ergebnisse anzeigen
+            document.getElementById("feedback").innerText = feedback;
 
-            // Hier kann die Logik zur Berechnung des Treibstoffs implementiert werden
-            const benötigterTreibstoff = 100; // Beispielwert
-            treibstoff.value = `Benötigter Treibstoff: ${benötigterTreibstoff} Liter`; // Setzen Sie den Treibstoffwert
-            document.getElementById("feedback").innerText = ""; // Löschen Sie Feedback
+            // Nächster Button anzeigen, wenn alles ausgefüllt ist
+            document.getElementById("nextButton").style.display = gegeben && gesucht && loesungsweg ? "block" : "none";
+        }
 
-            // Zeige den nächsten Button an
-            document.getElementById("nextButton").style.display = "block"; // Button anzeigen
-        });
+        function goToNext() {
+            // Hier könnte eine Logik zum Wechseln zur nächsten Aufgabe eingefügt werden
+            alert("Nächste Aufgabe");
+        }
+
+        // Vorgabewerte für die Textfelder
+        document.getElementById("gegeben").value = "Treibstoff: 500L";
+        document.getElementById("gesucht").value = "Minimaler Treibstoff zum Tanken";
+        document.getElementById("loesungsweg").value = "Lösungsweg: (500L - (Zähler/Nenner))"; // Beispiel
+        document.getElementById("Insgesamt benötigter Treibstoff").value = "200L"; // Beispiel
     </script>
 </body>
 </html>
