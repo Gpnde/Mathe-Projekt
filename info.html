@@ -22,7 +22,7 @@
         form {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 140px); /* Höhe des Bildschirms minus Navbar und anderer Abstände */
+            height: calc(100vh - 140px);
         }
 
         .form-row {
@@ -35,25 +35,20 @@
             margin-bottom: 5px;
         }
 
+        textarea, input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
         textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            flex: 1;
-            margin-right: 10px;
-            resize: none; /* Verhindert die Größenänderung durch den Benutzer */
+            resize: none;
         }
 
-        .form-row textarea:last-child {
+        .form-row textarea:last-child, .form-row input:last-child {
             margin-right: 0;
-        }
-
-        input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            flex: 1;
-            margin-right: 10px;
         }
 
         button {
@@ -69,29 +64,16 @@
             background-color: #45a049;
         }
 
-        .loesungsweg {
-            margin-top: 20px; /* Abstand zum oberen Teil */
-            flex-grow: 1; /* Nimmt den restlichen Platz ein */
+        .loesungsweg, .treibstoff {
+            margin-top: 20px;
+            flex-grow: 1;
         }
 
-        /* Neu: Breite und Höhe des Lösungsweg-Textfeldes */
-        .loesungsweg textarea {
-            width: 100%; /* Volle Breite */
-            height: 200px; /* Höhe für 10 Zeilen (ca. 20px pro Zeile) */
+        .loesungsweg textarea, .treibstoff textarea {
+            width: 100%;
+            height: 200px;
         }
 
-        /* Neuer Stil für den insgesamt benötigter Treibstoff */
-        .treibstoff {
-            margin-top: 10px; /* Abstand verringert */
-            margin-bottom: 10px; /* Abstand unten */
-        }
-
-        .treibstoff textarea {
-            width: 100%; /* Volle Breite */
-            height: 200px; /* Höhe für 10 Zeilen */
-        }
-
-        /* Feedback-Bereich */
         .feedback {
             margin-top: 20px;
             font-weight: bold;
@@ -99,80 +81,75 @@
         }
 
         .success {
-            color: green; /* Farbe für den Erfolgstext */
-            font-size: 24px; /* Größe des Erfolgs-Texts */
-            margin-top: 20px; /* Abstand nach oben */
+            color: green;
+            font-size: 24px;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
         }
 
-        /* Mini-Tastatur Styling */
         .mini-keyboard {
             display: flex;
             justify-content: center;
             margin-bottom: 10px;
-            flex-wrap: wrap; /* Damit die Buttons in mehreren Zeilen dargestellt werden können */
+            flex-wrap: wrap;
         }
 
         .mini-keyboard button {
-            font-size: 24px; /* Größerer Text */
+            font-size: 24px;
             margin: 5px;
-            padding: 15px; /* Größere Buttons */
+            padding: 15px;
             border-radius: 8px;
-            border: 2px solid #333; /* Sichtbare Umrandung */
+            border: 2px solid #333;
             background-color: #f0f0f0;
             cursor: pointer;
-            color: black; /* Textfarbe schwarz für Kontrast */
-            font-weight: bold; /* Fettschrift für bessere Lesbarkeit */
+            color: black;
+            font-weight: bold;
         }
 
         .mini-keyboard button:hover {
             background-color: #ddd;
         }
 
-        /* Kleinere Breite, aber zweizeiliger Absenden-Button */
         .submit-button {
-            width: 100px; /* Breite des Absenden-Buttons */
-            height: 60px; /* Höhe, um ihn zweizeilig zu machen */
+            width: 100px;
+            height: 60px;
             font-size: 14px;
-            text-align: center; /* Zentrierter Text */
-            padding: 5px; /* Kleineres Padding */
+            text-align: center;
+            padding: 5px;
         }
 
-        /* Stil für den nächsten Button */
         .next-button {
-            display: none; /* Standardmäßig ausblenden */
+            display: none;
             margin-top: 20px;
             padding: 10px;
-            background-color: red; /* Rote Hintergrundfarbe */
+            background-color: red;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px; /* Größerer Text */
+            font-size: 16px;
             text-align: center;
-            width: 150px; /* Breite des Buttons */
+            width: 150px;
         }
 
         .next-button:hover {
-            background-color: darkred; /* Dunklere Farbe beim Hover */
+            background-color: darkred;
         }
 
-        /* Fehler Stil */
         .error {
-            border: 1px solid rgba(255, 0, 0, 0.5); /* Blasser roter Rand */
-            background-color: rgba(255, 0, 0, 0.1); /* Blasse rote Hintergrundfarbe */
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            background-color: rgba(255, 0, 0, 0.1);
         }
 
-        /* Erfolgreiches Eingabefeld Stil */
         .success-input {
-            border: 1px solid rgba(0, 128, 0, 0.5); /* Blasser grüner Rand */
-            background-color: rgba(0, 128, 0, 0.1); /* Blasse grüne Hintergrundfarbe */
+            border: 1px solid rgba(0, 128, 0, 0.5);
+            background-color: rgba(0, 128, 0, 0.1);
         }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
 </head>
 <body>
-   
     <div class="navbar">
         <h1>Mathe Flug</h1>
     </div>
@@ -230,12 +207,12 @@
 
         <!-- Gesamt benötigter Treibstoff -->
         <div class="treibstoff">
-            <label for="Insgesamt benötigter Treibstoff">Insgesamt benötigter Treibstoff:</label>
+            <label for="treibstoff">Insgesamt benötigter Treibstoff:</label>
             <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
         <div class="feedback" id="feedback"></div>
-        <div class="success" id="successMessage" style="display: none;">Richtig!</div> <!-- Erfolgsnachricht -->
+        <div class="success" id="successMessage">Richtig!</div> <!-- Erfolgsnachricht -->
 
         <button type="submit" class="submit-button">Überprüfen</button>
     </form>
@@ -296,19 +273,19 @@
             } else {
                 loesungsweg.classList.remove('error');
             }
-            if (zaehler.value === "") {
-                zaehler.classList.add('error'); // Fehler-Highlight
-                hasError = true;
-            } else {
+
+            // Zähler und Nenner optional machen
+            if (zaehler.value !== "") {
                 zaehler.classList.remove('error');
                 zaehler.classList.add('success-input'); // Erfolgshervorhebung
-            }
-            if (nenner.value === "") {
-                nenner.classList.add('error'); // Fehler-Highlight
-                hasError = true;
             } else {
+                zaehler.classList.remove('success-input'); // Remove success highlight if left empty
+            }
+            if (nenner.value !== "") {
                 nenner.classList.remove('error');
                 nenner.classList.add('success-input'); // Erfolgshervorhebung
+            } else {
+                nenner.classList.remove('success-input'); // Remove success highlight if left empty
             }
 
             // Ergebnisse anzeigen
@@ -325,7 +302,6 @@
         }
 
         function goToNext() {
-            // Hier könnte eine Logik zum Wechseln zur nächsten Aufgabe eingefügt werden
             alert("Nächste Aufgabe");
         }
     </script>
