@@ -80,7 +80,7 @@
             height: 200px; /* Höhe für 10 Zeilen (ca. 20px pro Zeile) */
         }
 
-        /* Neuer Stil für das Textfeld "Insgesamt benötigter Treibstoff" */
+        /* Neuer Stil für den insgesamt benötigter Treibstoff */
         .treibstoff {
             margin-top: 10px; /* Abstand verringert */
             margin-bottom: 10px; /* Abstand unten */
@@ -161,6 +161,12 @@
             border: 1px solid rgba(255, 0, 0, 0.5); /* Blasser roter Rand */
             background-color: rgba(255, 0, 0, 0.1); /* Blasse rote Hintergrundfarbe */
         }
+
+        /* Erfolgreiches Eingabefeld Stil */
+        .success-input {
+            border: 1px solid rgba(0, 128, 0, 0.5); /* Blasser grüner Rand */
+            background-color: rgba(0, 128, 0, 0.1); /* Blasse grüne Hintergrundfarbe */
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -194,7 +200,8 @@
             </div>
         </div>
 
-        <div class="form-row">
+        <!-- Zähler und Nenner untereinander in der Mitte -->
+        <div style="display: flex; flex-direction: column; align-items: center;">
             <div>
                 <label for="zaehler">Zähler (Bruch):</label>
                 <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
@@ -224,16 +231,16 @@
         <!-- Gesamt benötigter Treibstoff -->
         <div class="treibstoff">
             <label for="Insgesamt benötigter Treibstoff">Insgesamt benötigter Treibstoff:</label>
-            <textarea id="Insgesamt benötigter Treibstoff" name="Insgesamt benötigter Treibstoff" placeholder="Hier Insgesamt benötigter Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
+            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
         </div>
 
-        <br>
+        <div class="feedback" id="feedback"></div>
+        <div class="success" id="successMessage" style="display: none;">Richtig!</div> <!-- Erfolgsnachricht -->
+
         <button type="submit" class="submit-button">Überprüfen</button>
-        <button type="button" id="nextButton" class="next-button" onclick="goToNext()">Nächste Aufgabe</button>
     </form>
-    
-    <div class="feedback" id="feedback"></div>
-    <div class="success" id="successMessage" style="display: none;">Richtig!</div> <!-- Erfolgsnachricht -->
+
+    <button id="nextButton" class="next-button" onclick="goToNext()">Nächste Aufgabe</button>
 
     <script>
         let currentField = null;
@@ -294,12 +301,14 @@
                 hasError = true;
             } else {
                 zaehler.classList.remove('error');
+                zaehler.classList.add('success-input'); // Erfolgshervorhebung
             }
             if (nenner.value === "") {
                 nenner.classList.add('error'); // Fehler-Highlight
                 hasError = true;
             } else {
                 nenner.classList.remove('error');
+                nenner.classList.add('success-input'); // Erfolgshervorhebung
             }
 
             // Ergebnisse anzeigen
