@@ -98,6 +98,12 @@
             color: red;
         }
 
+        .success {
+            color: green; /* Farbe für den Erfolgstext */
+            font-size: 24px; /* Größe des Erfolgs-Texts */
+            margin-top: 20px; /* Abstand nach oben */
+        }
+
         /* Mini-Tastatur Styling */
         .mini-keyboard {
             display: flex;
@@ -227,12 +233,14 @@
     </form>
     
     <div class="feedback" id="feedback"></div>
-    
+    <div class="success" id="successMessage" style="display: none;">Richtig!</div> <!-- Erfolgsnachricht -->
+
     <script>
         let currentField = null;
 
         function setActiveField(field) {
             currentField = field;
+            field.classList.remove('error'); // Fehler-Highlight entfernen, wenn das Feld fokussiert wird
         }
 
         function insertCharacter(character) {
@@ -252,25 +260,59 @@
         document.getElementById("mathForm").onsubmit = function(event) {
             event.preventDefault(); // Verhindert das normale Absenden des Formulars
             
-            const gegeben = document.getElementById("gegeben").value;
-            const gesucht = document.getElementById("gesucht").value;
-            const loesungsweg = document.getElementById("loesungsweg").value;
-            const zaehler = document.getElementById("zaehler").value;
-            const nenner = document.getElementById("nenner").value;
+            const gegeben = document.getElementById("gegeben");
+            const gesucht = document.getElementById("gesucht");
+            const loesungsweg = document.getElementById("loesungsweg");
+            const zaehler = document.getElementById("zaehler");
+            const nenner = document.getElementById("nenner");
+            const feedback = document.getElementById("feedback");
+            const successMessage = document.getElementById("successMessage");
 
-            // Hier können die Berechnungen und Überprüfungen durchgeführt werden
-            let feedback = "Überprüfung abgeschlossen.";
-            
-            // Beispielüberprüfung
-            if (gegeben === "" || gesucht === "" || loesungsweg === "") {
-                feedback = "Bitte alle erforderlichen Felder ausfüllen.";
+            let hasError = false; // Variable für Fehlerüberprüfung
+
+            // Überprüfung der Eingaben
+            if (gegeben.value === "") {
+                gegeben.classList.add('error'); // Fehler-Highlight
+                hasError = true;
+            } else {
+                gegeben.classList.remove('error');
             }
-            
+            if (gesucht.value === "") {
+                gesucht.classList.add('error'); // Fehler-Highlight
+                hasError = true;
+            } else {
+                gesucht.classList.remove('error');
+            }
+            if (loesungsweg.value === "") {
+                loesungsweg.classList.add('error'); // Fehler-Highlight
+                hasError = true;
+            } else {
+                loesungsweg.classList.remove('error');
+            }
+            if (zaehler.value === "") {
+                zaehler.classList.add('error'); // Fehler-Highlight
+                hasError = true;
+            } else {
+                zaehler.classList.remove('error');
+            }
+            if (nenner.value === "") {
+                nenner.classList.add('error'); // Fehler-Highlight
+                hasError = true;
+            } else {
+                nenner.classList.remove('error');
+            }
+
             // Ergebnisse anzeigen
-            document.getElementById("feedback").innerText = feedback;
+            if (hasError) {
+                feedback.innerText = "Bitte alle erforderlichen Felder ausfüllen.";
+                successMessage.style.display = "none"; // Erfolgsnachricht ausblenden
+            } else {
+                feedback.innerText = ""; // Fehlernachricht leeren
+                successMessage.style.display = "block"; // Erfolgsnachricht anzeigen
+            }
 
             // Nächster Button anzeigen, wenn alles ausgefüllt ist
-            document.getElementById("nextButton").style.display = gegeben && gesucht && loesungsweg ? "block" : "none";
+            document.getElementById("nextButton").style.display = hasError ? "none" : "block";
         }
 
         function goToNext() {
