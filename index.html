@@ -25,6 +25,13 @@
             height: calc(100vh - 140px); /* Höhe des Bildschirms minus Navbar und anderer Abstände */
         }
 
+        .hidden {
+            display: none;
+        }
+        
+        .result {
+            margin-top: 10px;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -46,6 +53,46 @@
         <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
         <br>
         <br>
-    
+        
+        <form id="flightForm">
+            <label>Hat das Flugzeug genug Treibstoff? (Ja/Nein)</label><br>
+            <input type="radio" name="fuel" value="yes" onclick="toggleField()"> Ja
+            <input type="radio" name="fuel" value="no" onclick="toggleField()"> Nein
+            
+            <div id="distanceField" class="hidden">
+                <label>Strecke (c):</label>
+                <input type="text" id="distanceInput" placeholder="Geben Sie die Strecke ein">
+            </div>
+            
+            <button type="button" onclick="checkAnswer()">Überprüfen</button>
+            <div id="result" class="result"></div>
+        </form>
+    </div>
+
+    <script>
+        function toggleField() {
+            const distanceField = document.getElementById('distanceField');
+            const yesOption = document.querySelector('input[name="fuel"][value="yes"]:checked');
+
+            if (yesOption) {
+                distanceField.classList.add('hidden');
+                document.getElementById('result').innerText = "Falsch";
+            } else {
+                distanceField.classList.remove('hidden');
+            }
+        }
+
+        function checkAnswer() {
+            const distanceInput = document.getElementById('distanceInput').value;
+            const resultDiv = document.getElementById('result');
+
+            if (distanceInput === "c=799,99 km") {
+                resultDiv.innerText = "Richtig";
+            } else {
+                resultDiv.innerText = "Falsch";
+            }
+        }
+    </script>
+
 </body>
 </html>
