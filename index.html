@@ -38,6 +38,12 @@
             height: 60px; 
             background-color: red;
         }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -61,8 +67,14 @@
         <br>
         <form id="flightForm">
             <label>Hat das Flugzeug genug Treibstoff? (Ja/Nein)</label><br>
-            <input type="radio" name="fuel" value="yes" onclick="toggleField()"> Ja
-            <input type="radio" name="fuel" value="no" onclick="toggleField()"> Nein
+            <div class="radio-label">
+                <input type="radio" name="fuel" value="yes" onclick="toggleField()"> 
+                <span>Ja</span>
+            </div>
+            <div class="radio-label">
+                <input type="radio" name="fuel" value="no" onclick="toggleField()"> 
+                <span>Nein</span>
+            </div>
             
             <div id="distanceField" class="hidden">
                 <label>Strecke (c):</label>
@@ -92,7 +104,7 @@
             const distanceInput = document.getElementById('distanceInput').value;
             const resultDiv = document.getElementById('result');
 
-            if (distanceInput === "799,99 km") {
+            if (distanceInput === "c=799,99 km") {
                 resultDiv.innerText = "Richtig";
             } else {
                 resultDiv.innerText = "Falsch";
