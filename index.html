@@ -31,12 +31,26 @@
         
         .result {
             margin-top: 10px;
+            font-size: 24px; /* Standardgröße für das Ergebnis */
+        }
+
+        .result.correct {
+            color: green;
+            font-size: 28px; /* Größere Schriftgröße für "Richtig" */
+        }
+
+        .result.incorrect {
+            color: red;
+            font-size: 28px; /* Größere Schriftgröße für "Falsch" */
         }
 
         button {
             width: 200px;
             height: 60px; 
             background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
         }
 
         .radio-label {
@@ -94,7 +108,7 @@
 
             if (yesOption) {
                 distanceField.classList.add('hidden');
-                document.getElementById('result').innerText = "Falsch";
+                document.getElementById('result').innerText = "";
             } else {
                 distanceField.classList.remove('hidden');
             }
@@ -106,8 +120,10 @@
 
             if (distanceInput === "799,99 km") {
                 resultDiv.innerText = "Richtig";
+                resultDiv.className = "result correct";
             } else {
                 resultDiv.innerText = "Falsch";
+                resultDiv.className = "result incorrect";
             }
         }
     </script>
