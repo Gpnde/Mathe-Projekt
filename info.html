@@ -47,6 +47,13 @@
             justify-content: center;
             align-items: center;
         }
+
+        .explanation {
+            color: black;
+            margin-top: 10px;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
@@ -75,22 +82,36 @@
         <br><br>
         <a id="fuelCheckButton" class="check-button" href="javascript:void(0);" onclick="checkFuel()">Überprüfen</a>
         <div id="fuelResult" class="result"></div>
+        <div id="explanationText" class="explanation hidden">
+            α = 180° - β - γ ≈ (45,92°) <br>
+            a / sin(α) = b / sin(β) &emsp; | * sin(α) <br>
+            a = b / sin(β) * sin(α) ≈ (576 km) <br><br>
+            U = a + b + c = 576 km + 595,9 km + 800 km = 1971,9 km <br><br>
+            Für den gesamten Weg benötigt das Flugzeug <br>
+            1971,9 km * 3,4 l / 100 km = 67 l <br><br>
+            A: Das Flugzeug hat noch 20 l im Tank und muss demnach noch 47 l <br>
+            an der Tankstelle tanken, um den Weg zurückzulegen.
+        </div>
     </div>
 
     <script>
         function checkFuel() {
             const fuelInput = document.getElementById('fuelInput').value.trim();
             const fuelResult = document.getElementById('fuelResult');
+            const explanationText = document.getElementById('explanationText');
             
             if (fuelInput === "47l") {
                 fuelResult.innerText = "Richtig";
                 fuelResult.className = "result correct";
+                explanationText.classList.remove('hidden'); // Zeige die Erklärung
             } else {
                 fuelResult.innerText = "Falsch";
                 fuelResult.className = "result incorrect";
+                explanationText.classList.add('hidden'); // Verstecke die Erklärung
             }
         }
     </script>
 
 </body>
 </html>
+
