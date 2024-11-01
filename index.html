@@ -50,19 +50,7 @@
             color: black; /* Schriftfarbe für den zusätzlichen Text */
         }
 
-        .next-button {
-            margin-top: 20px; /* Abstand zum vorherigen Element */
-            display: none; /* Standardmäßig ausgeblendet */
-            width: 200px;
-            height: 60px; 
-            background-color: green;
-            color: black;
-            text-align: center;
-            text-decoration: none; /* Entferne den Unterstrich */
-            line-height: 60px; /* Vertikale Zentrierung */
-            border-radius: 5px; /* Abgerundete Ecken */
-        }
-        .button {
+        .next-button, .check-button {
             margin-top: 20px; /* Abstand zum vorherigen Element */
             display: none; /* Standardmäßig ausgeblendet */
             width: 200px;
@@ -118,7 +106,7 @@
             </div>
             <br>
             <br>
-            <button type="button" onclick="checkAnswer()">Überprüfen</button>
+            <a id="checkButton" class="check-button" href="javascript:void(0);" onclick="checkAnswer()">Überprüfen</a>
             <div id="result" class="result"></div>
             <div id="additionalText" class="additional-text hidden">
                 c/sin(γ)=b/sin(β)		                        |*sin(γ)                   <br>
@@ -140,6 +128,7 @@
                 document.getElementById('result').innerText = "";
                 document.getElementById('additionalText').classList.add('hidden');
                 document.getElementById('distanceInput').value = ""; // Setze das Textfeld zurück
+                document.getElementById('checkButton').style.display = 'none'; // Verstecke den Button
                 document.getElementById('nextButton').style.display = 'none'; // Verstecke den Button
             } else {
                 distanceField.classList.remove('hidden');
@@ -150,6 +139,7 @@
             const distanceInput = document.getElementById('distanceInput').value;
             const resultDiv = document.getElementById('result');
             const additionalText = document.getElementById('additionalText');
+            const checkButton = document.getElementById('checkButton');
             const nextButton = document.getElementById('nextButton');
 
             if (distanceInput === "799,99 km") {
@@ -163,6 +153,8 @@
                 additionalText.classList.add('hidden'); // Verstecke den zusätzlichen Text
                 nextButton.style.display = 'none'; // Verstecke den Button
             }
+
+            checkButton.style.display = 'none'; // Verstecke den Überprüfen-Button
         }
     </script>
 
