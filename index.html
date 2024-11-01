@@ -50,12 +50,24 @@
             color: black; /* Schriftfarbe für den zusätzlichen Text */
         }
 
-        .next-button, .check-button {
+        .next-button {
             margin-top: 20px; /* Abstand zum vorherigen Element */
             display: none; /* Standardmäßig ausgeblendet */
             width: 200px;
             height: 60px; 
             background-color: green;
+            color: black;
+            text-align: center;
+            text-decoration: none; /* Entferne den Unterstrich */
+            line-height: 60px; /* Vertikale Zentrierung */
+            border-radius: 5px; /* Abgerundete Ecken */
+        }
+
+        .check-button {
+            margin-top: 20px; /* Abstand zum vorherigen Element */
+            width: 200px;
+            height: 60px; 
+            background-color: red;
             color: black;
             text-align: center;
             text-decoration: none; /* Entferne den Unterstrich */
@@ -128,11 +140,9 @@
                 document.getElementById('result').innerText = "";
                 document.getElementById('additionalText').classList.add('hidden');
                 document.getElementById('distanceInput').value = ""; // Setze das Textfeld zurück
-                document.getElementById('checkButton').style.display = 'none'; // Verstecke den Überprüfen-Button
                 document.getElementById('nextButton').style.display = 'none'; // Verstecke den nächsten Button
             } else {
                 distanceField.classList.remove('hidden');
-                document.getElementById('checkButton').style.display = 'block'; // Zeige den Überprüfen-Button
             }
         }
 
@@ -140,7 +150,6 @@
             const distanceInput = document.getElementById('distanceInput').value;
             const resultDiv = document.getElementById('result');
             const additionalText = document.getElementById('additionalText');
-            const checkButton = document.getElementById('checkButton');
             const nextButton = document.getElementById('nextButton');
 
             if (distanceInput === "799,99 km") {
@@ -154,8 +163,6 @@
                 additionalText.classList.add('hidden'); // Verstecke den zusätzlichen Text
                 nextButton.style.display = 'none'; // Verstecke den Button
             }
-
-            checkButton.style.display = 'none'; // Verstecke den Überprüfen-Button
         }
     </script>
 
