@@ -19,21 +19,30 @@
             margin: 20px;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 140px); /* Höhe des Bildschirms minus Navbar und anderer Abstände */
+        .result {
+            margin-top: 10px;
+            font-size: 24px;
         }
+
+        .result.correct {
+            color: green;
+        }
+
+        .result.incorrect {
+            color: red;
+        }
+
         .check-button {
-            margin-top: 20px; /* Abstand zum vorherigen Element */
+            margin-top: 20px;
             width: 200px;
-            height: 60px; 
+            height: 60px;
             background-color: red;
             color: black;
             text-align: center;
-            text-decoration: none; /* Entferne den Unterstrich */
-            line-height: 60px; /* Vertikale Zentrierung */
-            border-radius: 5px; /* Abgerundete Ecken */
+            text-decoration: none;
+            line-height: 60px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
     <meta charset="UTF-8">
@@ -48,37 +57,37 @@
     <br>
     <div class="text">
        Da der Treibstoff für den Weg nicht ausreicht, möchte das Flugzeug zunächst zur Tankstelle (C) <br>
-        fliegen und danach weiter zum Berg (B). Berechne, wie viel Treibstoff mindestens getankt werden muss, <br> 
-        damit das Flugzeug von der Tankstelle (C) zum Berg (B) und danach wieder zur insel (A) gelangt. <br>
-        <br>
+       fliegen und danach weiter zum Berg (B). Berechne, wie viel Treibstoff mindestens getankt werden muss, <br> 
+       damit das Flugzeug von der Tankstelle (C) zum Berg (B) und danach wieder zur Insel (A) gelangt. <br>
         <br>
         Skizze: <br>
         <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
         <br>
         <br>
-        <form id="flightForm">
-            <label>Wie viel Treibstoff wird für den Flug benötigt? </label><br>
-            <div class="radio-label">
-                <input type="radio" name="fuel" value="yes" onclick="toggleField()"> 
-                <span>Ja</span>
-            </div>
-            <div class="radio-label">
-                <input type="radio" name="fuel" value="no" onclick="toggleField()"> 
-                <span>Nein</span>
-            </div>
-            
-            <div id="distanceField" class="hidden">
-                <label>Strecke (c):</label>
-                <input type="text" id="distanceInput" placeholder="Geben Sie die Strecke ein">
-            </div>
-            <br>
-            <br>
-            <a id="checkButton" class="check-button" href="javascript:void(0);" onclick="checkAnswer()">Überprüfen</a>
-            <div id="result" class="result"></div>
-            <div id="additionalText" class="additional-text hidden">
-
-            </div>
-        </form>
+        
+        <!-- Neues Eingabefeld für die Treibstoffmenge -->
+        <label>Wie viel Treibstoff wird insgesamt benötigt?</label>
+        <input type="text" id="fuelInput" placeholder="Geben Sie die benötigte Treibstoffmenge ein">
+        
+        <br><br>
+        <a id="fuelCheckButton" class="check-button" href="javascript:void(0);" onclick="checkFuel()">Überprüfen</a>
+        <div id="fuelResult" class="result"></div>
     </div>
+
+    <script>
+        function checkFuel() {
+            const fuelInput = document.getElementById('fuelInput').value.trim();
+            const fuelResult = document.getElementById('fuelResult');
+            
+            if (fuelInput === "47l") {
+                fuelResult.innerText = "Richtig";
+                fuelResult.className = "result correct";
+            } else {
+                fuelResult.innerText = "Falsch";
+                fuelResult.className = "result incorrect";
+            }
+        }
+    </script>
+
 </body>
 </html>
