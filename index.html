@@ -58,13 +58,16 @@
             border: none;
             cursor: pointer;
         }
+
+        .next-button {
+            margin-top: 20px; /* Abstand zum vorherigen Element */
+            display: none; /* Standardmäßig ausgeblendet */
+        }
+
         .radio-label {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
-        }
-        .additional-text hidden {
-            border: dotted black;
         }
     </style>
     <meta charset="UTF-8">
@@ -112,6 +115,7 @@
                 =595,9 km/sin(48°)*sin(86,08°)=799,99 km                      <br>
                 c=799,99 km
             </div>
+            <button id="nextButton" class="next-button" onclick="window.location.href='info.html'">Zur nächsten Seite</button>
         </form>
     </div>
 
@@ -125,6 +129,7 @@
                 document.getElementById('result').innerText = "";
                 document.getElementById('additionalText').classList.add('hidden');
                 document.getElementById('distanceInput').value = ""; // Setze das Textfeld zurück
+                document.getElementById('nextButton').style.display = 'none'; // Verstecke den Button
             } else {
                 distanceField.classList.remove('hidden');
             }
@@ -134,15 +139,18 @@
             const distanceInput = document.getElementById('distanceInput').value;
             const resultDiv = document.getElementById('result');
             const additionalText = document.getElementById('additionalText');
+            const nextButton = document.getElementById('nextButton');
 
             if (distanceInput === "799,99 km") {
                 resultDiv.innerHTML = '<span style="color: green;">Richtig</span>';
                 resultDiv.className = "result correct";
                 additionalText.classList.remove('hidden'); // Zeige den zusätzlichen Text
+                nextButton.style.display = 'block'; // Zeige den Button zur nächsten Seite
             } else {
                 resultDiv.innerText = "Falsch";
                 resultDiv.className = "result incorrect";
                 additionalText.classList.add('hidden'); // Verstecke den zusätzlichen Text
+                nextButton.style.display = 'none'; // Verstecke den Button
             }
         }
     </script>
