@@ -53,6 +53,7 @@
             margin-top: 10px;
             font-size: 16px;
             white-space: pre-wrap;
+            display: none; /* Standardmäßig ausgeblendet */
         }
     </style>
     <meta charset="UTF-8">
@@ -82,7 +83,7 @@
         <br><br>
         <a id="fuelCheckButton" class="check-button" href="javascript:void(0);" onclick="checkFuel()">Überprüfen</a>
         <div id="fuelResult" class="result"></div>
-        <div id="explanationText" class="explanation hidden">
+        <div id="explanationText" class="explanation">
             α = 180° - β - γ ≈ (45,92°) <br>
             a / sin(α) = b / sin(β) &emsp; | * sin(α) <br>
             a = b / sin(β) * sin(α) ≈ 576 km <br><br>
@@ -103,15 +104,14 @@
             if (fuelInput === "47l") {
                 fuelResult.innerText = "Richtig";
                 fuelResult.className = "result correct";
-                explanationText.classList.remove('hidden'); // Zeige die Erklärung
+                explanationText.style.display = 'block'; // Zeige die Erklärung
             } else {
                 fuelResult.innerText = "Falsch";
                 fuelResult.className = "result incorrect";
-                explanationText.classList.add('hidden'); // Verstecke die Erklärung
+                explanationText.style.display = 'none'; // Verstecke die Erklärung
             }
         }
     </script>
 
 </body>
 </html>
-
