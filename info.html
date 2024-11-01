@@ -12,7 +12,7 @@
             padding: 10px;
             width: 100%;
             height: 70px;
-        }
+        } 
 
         body {
             font-family: Arial, sans-serif;
@@ -22,286 +22,149 @@
         form {
             display: flex;
             flex-direction: column;
-            height: calc(100vh - 140px);
+            height: calc(100vh - 140px); /* Höhe des Bildschirms minus Navbar und anderer Abstände */
         }
 
-        .form-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .hidden {
+            display: none;
+        }
+        
+        .result {
+            margin-top: 10px;
+            font-size: 24px; /* Standardgröße für das Ergebnis */
         }
 
-        label {
-            margin-bottom: 5px;
-        }
-
-        textarea, input {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            flex: 1;
-            margin-right: 10px;
-        }
-
-        textarea {
-            resize: none;
-        }
-
-        .form-row textarea:last-child, .form-row input:last-child {
-            margin-right: 0;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .loesungsweg, .treibstoff {
-            margin-top: 20px;
-            flex-grow: 1;
-        }
-
-        .loesungsweg textarea, .treibstoff textarea {
-            width: 100%;
-            height: 200px;
-        }
-
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-            color: red;
-        }
-
-        .success {
+        .result.correct {
             color: green;
-            font-size: 24px;
-            margin-top: 20px;
-            display: none; /* Initially hidden */
+            font-size: 28px; /* Größere Schriftgröße für "Richtig" */
         }
 
-        .mini-keyboard {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
+        .result.incorrect {
+            color: red;
+            font-size: 28px; /* Größere Schriftgröße für "Falsch" */
         }
 
-        .mini-keyboard button {
-            font-size: 24px;
-            margin: 5px;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px solid #333;
-            background-color: #f0f0f0;
-            cursor: pointer;
+        .additional-text {
+            margin-top: 10px;
+            font-size: 20px; /* Schriftgröße für den zusätzlichen Text */
+            color: black; /* Schriftfarbe für den zusätzlichen Text */
+        }
+
+        .next-button {
+            margin-top: 20px; /* Abstand zum vorherigen Element */
+            display: none; /* Standardmäßig ausgeblendet */
+            width: 200px;
+            height: 60px; 
+            background-color: green;
             color: black;
-            font-weight: bold;
-        }
-
-        .mini-keyboard button:hover {
-            background-color: #ddd;
-        }
-
-        .submit-button {
-            width: 100px;
-            height: 60px;
-            font-size: 14px;
             text-align: center;
-            padding: 5px;
+            text-decoration: none; /* Entferne den Unterstrich */
+            line-height: 60px; /* Vertikale Zentrierung */
+            border-radius: 5px; /* Abgerundete Ecken */
         }
 
-        .error {
-            border: 1px solid rgba(255, 0, 0, 0.5);
-            background-color: rgba(255, 0, 0, 0.1);
+        .check-button {
+            margin-top: 20px; /* Abstand zum vorherigen Element */
+            width: 200px;
+            height: 60px; 
+            background-color: red;
+            color: black;
+            text-align: center;
+            text-decoration: none; /* Entferne den Unterstrich */
+            line-height: 60px; /* Vertikale Zentrierung */
+            border-radius: 5px; /* Abgerundete Ecken */
         }
 
-        .success-input {
-            border: 1px solid rgba(0, 128, 0, 0.5);
-            background-color: rgba(0, 128, 0, 0.1);
+        .radio-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
         }
     </style>
     <meta charset="UTF-8">
     <title>Mein Dokument</title>
 </head>
 <body>
+   
     <div class="navbar">
         <h1>Mathe Flug</h1>
     </div>
     <br>
     <br>
     <div class="text">
-        Da der Treibstoff nicht ausreicht, um direkt zum Berg (B) zu fliegen, möchte das Flugzeug zunächst zur Tankstelle (C) fliegen, um aufzutanken, und dann weiter zum Berg (B) zu fliegen. <br>
-        Berechne, wie viel Treibstoff mindestens nachgetankt werden muss, damit das Flugzeug mit dem restlichen Treibstoff und dem zusätzlichen Sprit sowohl zum Berg (B) <br>
-        als auch anschließend sicher zurück zur Insel (A) fliegen kann.
+        Ein Flugzeug will von einem Stützpunkt (A) zu einem Flugplatz in den Bergen (B) fliegen. <br>
+        Der Verbrauch dieses Flugzeugs beträgt 3,4 l/100 km. <br>
+        Berechne, ob das Flugzeug den Weg schafft, wenn es nur 20 l Treibstoff hat.
         <br>
         <br>
         Skizze: <br>
         <img src="https://github.com/Gpnde/Mathe-Projekt/blob/main/Screenshot%202024-10-12%20213307.png?raw=true" alt="Mein Screenshot" />
         <br>
         <br>
-    <form id="mathForm">
-        <div class="form-row">
-            <div>
-                <label for="gegeben">Gegeben:</label>
-                <textarea id="gegeben" name="gegeben" rows="3" placeholder="Bitte Gegebenes eingeben..."></textarea>
+        <form id="flightForm">
+            <label>Hat das Flugzeug genug Treibstoff? (Ja/Nein)</label><br>
+            <div class="radio-label">
+                <input type="radio" name="fuel" value="yes" onclick="toggleField()"> 
+                <span>Ja</span>
             </div>
-            <div>
-                <label for="gesucht">Gesucht:</label>
-                <textarea id="gesucht" name="gesucht" rows="3" placeholder="Bitte Gesuchtes eingeben..."></textarea>
+            <div class="radio-label">
+                <input type="radio" name="fuel" value="no" onclick="toggleField()"> 
+                <span>Nein</span>
             </div>
-        </div>
-
-        <!-- Zähler und Nenner untereinander in der Mitte -->
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <div>
-                <label for="zaehler">Zähler (Bruch):</label>
-                <input id="zaehler" type="text" placeholder="Zähler" onfocus="setActiveField(this)" />
+            
+            <div id="distanceField" class="hidden">
+                <label>Strecke (c):</label>
+                <input type="text" id="distanceInput" placeholder="Geben Sie die Strecke ein">
             </div>
-            <div>
-                <label for="nenner">Nenner (Bruch):</label>
-                <input id="nenner" type="text" placeholder="Nenner" onfocus="setActiveField(this)" />
+            <br>
+            <br>
+            <a id="checkButton" class="check-button" href="javascript:void(0);" onclick="checkAnswer()">Überprüfen</a>
+            <div id="result" class="result"></div>
+            <div id="additionalText" class="additional-text hidden">
+                c/sin(γ)=b/sin(β)		                        |*sin(γ)                   <br>
+                c=b/sin(β)*sin(γ)                                              <br>
+                =595,9 km/sin(48°)*sin(86,08°)=799,99 km                      <br>
+                c=799,99 km
             </div>
-        </div>
-
-        <!-- Mini-Tastatur -->
-        <div class="mini-keyboard">
-            <button type="button" onclick="insertCharacter('γ')">γ</button>
-            <button type="button" onclick="insertCharacter('α')">α</button>
-            <button type="button" onclick="insertCharacter('β')">β</button>
-            <button type="button" onclick="insertFraction()">Bruch einsetzen</button>
-            <button type="button" onclick="insertCharacter('²')">x²</button>
-            <button type="button" onclick="insertCharacter('³')">x³</button>
-            <button type="button" onclick="insertCharacter('√')">√</button> <!-- Wurzel-Button -->
-        </div>
-
-        <div class="loesungsweg">
-            <label for="loesungsweg">Lösungsweg:</label>
-            <textarea id="loesungsweg" name="loesungsweg" placeholder="Hier Lösungsweg eingeben..." onfocus="setActiveField(this)"></textarea>
-        </div>
-
-        <!-- Gesamt benötigter Treibstoff -->
-        <div class="treibstoff">
-            <label for="treibstoff">Insgesamt benötigter Treibstoff:</label>
-            <textarea id="treibstoff" name="treibstoff" placeholder="Hier Treibstoff eingeben..." onfocus="setActiveField(this)"></textarea>
-        </div>
-
-        <div class="feedback" id="feedback"></div>
-        <div class="success" id="successMessage">Richtig!</div> <!-- Erfolgsnachricht -->
-
-        <button type="submit" class="submit-button">Überprüfen</button>
-    </form>
+            <a id="nextButton" class="next-button" href="info.html">Zur nächsten Seite</a>
+        </form>
+    </div>
 
     <script>
-        let currentField = null;
+        function toggleField() {
+            const distanceField = document.getElementById('distanceField');
+            const yesOption = document.querySelector('input[name="fuel"][value="yes"]:checked');
 
-        function setActiveField(field) {
-            currentField = field;
-            field.classList.remove('error'); // Fehler-Highlight entfernen, wenn das Feld fokussiert wird
-        }
-
-        function insertCharacter(character) {
-            if (currentField) {
-                currentField.value += character;
-                currentField.focus(); // Setzt den Fokus zurück auf das aktuelle Feld
-            }
-        }
-
-        function insertFraction() {
-            if (currentField) {
-                currentField.value += 'a/b'; // Platzhalter für Bruch
-                currentField.focus(); // Setzt den Fokus zurück auf das aktuelle Feld
+            if (yesOption) {
+                distanceField.classList.add('hidden');
+                document.getElementById('result').innerText = "";
+                document.getElementById('additionalText').classList.add('hidden');
+                document.getElementById('distanceInput').value = ""; // Setze das Textfeld zurück
+                document.getElementById('nextButton').style.display = 'none'; // Verstecke den nächsten Button
+            } else {
+                distanceField.classList.remove('hidden');
             }
         }
 
-        document.getElementById("mathForm").onsubmit = function(event) {
-            event.preventDefault(); // Verhindert das normale Absenden des Formulars
-            
-            const gegeben = document.getElementById("gegeben");
-            const gesucht = document.getElementById("gesucht");
-            const loesungsweg = document.getElementById("loesungsweg");
-            const zaehler = document.getElementById("zaehler");
-            const nenner = document.getElementById("nenner");
-            const treibstoff = document.getElementById("treibstoff");
-            const feedback = document.getElementById("feedback");
-            const successMessage = document.getElementById("successMessage");
+        function checkAnswer() {
+            const distanceInput = document.getElementById('distanceInput').value;
+            const resultDiv = document.getElementById('result');
+            const additionalText = document.getElementById('additionalText');
+            const nextButton = document.getElementById('nextButton');
 
-            let hasError = false;
-
-            // Validierung
-            if (gegeben.value.trim() === "") {
-                gegeben.classList.add('error');
-                hasError = true;
+            if (distanceInput === "799,99 km") {
+                resultDiv.innerHTML = '<span style="color: green;">Richtig</span>';
+                resultDiv.className = "result correct";
+                additionalText.classList.remove('hidden'); // Zeige den zusätzlichen Text
+                nextButton.style.display = 'block'; // Zeige den Button zur nächsten Seite
             } else {
-                gegeben.classList.remove('error');
+                resultDiv.innerText = "Falsch";
+                resultDiv.className = "result incorrect";
+                additionalText.classList.add('hidden'); // Verstecke den zusätzlichen Text
+                nextButton.style.display = 'none'; // Verstecke den Button
             }
-
-            if (gesucht.value.trim() === "") {
-                gesucht.classList.add('error');
-                hasError = true;
-            } else {
-                gesucht.classList.remove('error');
-            }
-
-            if (loesungsweg.value.trim() === "") {
-                loesungsweg.classList.add('error');
-                hasError = true;
-            } else {
-                loesungsweg.classList.remove('error');
-            }
-
-            if (zaehler.value.trim() === "" || nenner.value.trim() === "") {
-                zaehler.classList.add('error');
-                nenner.classList.add('error');
-                hasError = true;
-            } else {
-                zaehler.classList.remove('error');
-                nenner.classList.remove('error');
-            }
-
-            // Wenn keine Fehler gefunden wurden, führen Sie die Berechnung durch
-            if (!hasError) {
-                const a = 576.03;
-                const b = 595.9;
-                const c = 799.99;
-                const alpha = 180 - 48 - 86.08; // α = 180° - β - γ
-                const cosAlpha = Math.cos(alpha * (Math.PI / 180)); // Umwandlung in Bogenmaß
-
-                // Berechnung
-                const gesamtEntfernung = a + b + c; // Gesamte Entfernung
-                const treibstoffProHundertKm = 3.4; // Treibstoffverbrauch pro 100 km
-                const treibstoffGesamt = (gesamtEntfernung / 100) * treibstoffProHundertKm; // Gesamtverbrauch
-
-                // Berechnung für die Seitenlängen
-                const aSquared = (b ** 2) + (c ** 2) - (2 * b * c * cosAlpha); // a² = b² + c² - 2bc*cos(α)
-                const aValue = Math.sqrt(aSquared); // a = √(a²)
-
-                // Setzen der Werte in die Textfelder
-                loesungsweg.value = `
-a = α = 180° - β - γ = 180° - 48° - 86,08° = ${alpha.toFixed(2)}°
-a² = b² + c² - 2bc * cos(α)
-= (${b} km)² + (${c} km)² - 2 * ${b} km * ${c} km * cos(${alpha.toFixed(2)}°) = ${aSquared.toFixed(4)} km²
-= √${aSquared.toFixed(4)} km² = ${aValue.toFixed(2)} km
-a = ${aValue.toFixed(2)} km die einzige richtige Antwort.
-                `;
-
-                treibstoff.value = treibstoffGesamt.toFixed(2) + " l"; // Setze den benötigten Treibstoff in das Textfeld
-
-                // Erfolgsnachricht und Feedback
-                successMessage.style.display = 'block'; // Erfolgsnachricht anzeigen
-                feedback.textContent = ""; // Feedback zurücksetzen
-            } else {
-                successMessage.style.display = 'none'; // Erfolgsnachricht ausblenden
-                feedback.textContent = "Bitte fülle alle erforderlichen Felder aus."; // Feedback anzeigen
-            }
-        };
+        }
     </script>
+
 </body>
 </html>
