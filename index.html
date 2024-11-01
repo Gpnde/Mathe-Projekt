@@ -50,20 +50,15 @@
             color: black; /* Schriftfarbe für den zusätzlichen Text */
         }
 
-        button {
+        .next-button {
+            margin-top: 20px; /* Abstand zum vorherigen Element */
+            display: none; /* Standardmäßig ausgeblendet */
             width: 200px;
             height: 60px; 
             background-color: red;
             color: white;
             border: none;
             cursor: pointer;
-        }
-
-        .next-button {
-            margin-top: 20px; /* Abstand zum vorherigen Element */
-            display: none; /* Standardmäßig ausgeblendet */
-            background-color: green;
-            widht: 100px;
         }
 
         .radio-label {
@@ -117,7 +112,7 @@
                 =595,9 km/sin(48°)*sin(86,08°)=799,99 km                      <br>
                 c=799,99 km
             </div>
-            <button id="nextButton" class="next-button" href="info.html">Zur nächsten Seite</button>
+            <a id="nextButton" class="next-button" href="info.html">Zur nächsten Seite</a>
         </form>
     </div>
 
