@@ -160,7 +160,7 @@ A: Er verbraucht also 8⋅3,4l=27,2l – der Treibstoff reicht demnach nicht aus
             } else {
                 resultDiv.innerText = "Falsch";
                 resultDiv.className = "result incorrect";
-                additionalText.classList.add('hidden'); // Verstecke den zusätzlichen Text
+                additionalText.classList.remove('hidden'); // Zeige den zusätzlichen Text
                 nextButton.style.display = 'none'; // Verstecke den Button
             }
         }
