@@ -78,7 +78,7 @@
         
         <!-- Neues Eingabefeld für die Treibstoffmenge -->
         <label>Wie viel Treibstoff wird insgesamt benötigt?</label>
-        <input type="text" id="fuelInput" placeholder="Geben Sie die benötigte Treibstoffmenge ein">
+        <input type="text" id="fuelInput" placeholder="Geben Sie die benötigte Treibstoffmenge ein">l
         
         <br><br>
         <a id="fuelCheckButton" class="check-button" href="javascript:void(0);" onclick="checkFuel()">Überprüfen</a>
@@ -101,7 +101,7 @@
             const fuelResult = document.getElementById('fuelResult');
             const explanationText = document.getElementById('explanationText');
             
-            if (fuelInput === "47l") {
+            if (fuelInput === "47") {
                 fuelResult.innerText = "Richtig";
                 fuelResult.className = "result correct";
                 explanationText.style.display = 'block'; // Zeige die Erklärung
